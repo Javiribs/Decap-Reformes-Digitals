@@ -1,11 +1,83 @@
 {
-  "heroTitle": "Redisseny i actualització de webs",
-  "heroSubtitle": "Modernitzem webs antigues perquè tornin a vendre: disseny, funcionalitat i manteniment.",
-  "heroCtaLabel": "Demana pressupost",
-  "heroCtaHref": "#contacte",
-  "heroMedia": "",
-  "usp": [],
-  "services": [],
-  "process": [],
-  "contactCta": { "title": "Vols modernitzar la teva web?", "subtitle": "", "button": "Parlem", "href": "#contacte" }
+  "nav": {
+    "logo": "img/RDBlack.png",
+    "links": [
+      {"label": "Què fem", "href": "#hero"},
+      {"label": "Com ho fem", "href": "#about"},
+      {"label": "Fem-ho", "href": "#process"}
+    ],
+    "languages": {
+      "labelCa": "Cat",
+      "urlCa": "index.html",
+      "labelEs": "Cast",
+      "urlEs": "index-cast.html"
+    }
+  },
+  "hero": {
+    "title": "Webs funcionals i específiques pel teu negoci",
+    "description": "Dissenyem, refem o optimitzem la teva web amb claredat, proximitat i preus assequibles.\nPerquè tinguis una presència digital que et representi i que funcioni.",
+    "poster": "img/hero-poster.jpg",
+    "videoWebm": "img/hero-gradient.webm",
+    "videoMp4": "img/hero-gradient.mp4"
+  },
+  "about": {
+    "title": "Consultoria Digital",
+    "description": "Et donem suport real i pràctic per fer créixer el teu negoci des del món digital:",
+    "services": [
+      "Identitat gràfica i digital",
+      "Programació i Disseny web personalitzat",
+      "Visibilitat, SEO, SEM, GEO, campanyes i automatitzacions",
+      "Xarxes Socials",
+      "e-commerce",
+      "Anàlisi i optimització de resultats",
+      "Mentoria i formació digital personalitzada",
+      "Control de la productivitat a la teva empresa"
+    ]
+  },
+  "process": {
+    "sectionTitle": "Un procés senzill\nUn resultat que té sentit",
+    "sectionDescription": "Fer la web del teu negoci no hauria de ser complicat. Aquest és el nostre mètode:",
+    "steps": [
+      {"number": "01.", "title": "Reunió inicial:", "text": "Coneixem a fons el teu negoci i el que vols aconseguir amb la web."},
+      {"number": "02.", "title": "Proposta de disseny:", "text": "Et presentem una proposta visual que reflecteixi la teva identitat."},
+      {"number": "03.", "title": "Validació:", "text": "Escoltem el teu feedback i ajustem el disseny segons calgui."},
+      {"number": "04.", "title": "Programació:", "text": "Convertim el disseny en una web funcional, optimitzada i adaptada."},
+      {"number": "05.", "title": "Entrega i revisió final:", "text": "Publiquem la web quan estiguis totalment satisfet/a."},
+      {"number": "06.", "title": "", "text": "Temps estimat: entre 4 i 6 setmanes.\nPreu a partir de 1.000 €"}
+    ]
+  },
+  "team": [
+    {
+      "name": "Marc Duran Llauger",
+      "photo": "img/Marc-foto-perfil.jpg",
+      "frontDesc": "",
+      "bio": "Mirada estratègica orientada a resultats. És qui s'encarrega que la teva web no només es vegi bé, sinó que funcioni.",
+      "bullets": [
+        "Màster en Màrqueting Digital per ESIC.",
+        "Més de 8 anys d'experiència en el sector digital.",
+        "SEO, SEM i copywriting."
+      ]
+    },
+    {
+      "name": "Javier Ribas Pascual",
+      "photo": "img/foto perfil.JPG",
+      "frontDesc": "",
+      "bio": "Creativitat enfocada en crear i millorar productes digitals. Responsable de dissenyar i desenvolupar webs, softwares i aplicacions.",
+      "bullets": [
+        "Programador (Especialista en JS, Node.JS, html i css).",
+        "Màster en UX/UI per Neoland.",
+        "Advocat per la UOC."
+      ]
+    }
+  ],
+  "footer": {
+    "title": "Encara tens dubtes?",
+    "contact": "Truca'ns directament a **123 456 789**\nEscriu-nos directament al **WhatsApp**\nEnvia'ns un correu a **hola@reformesdigitals.com**",
+    "legalText": "Avís legal i Política de cookies",
+    "legalHref": "cookies.html",
+    "copyright": "Reformes Digitals © 2025",
+    "poster": "img/hero-poster.jpg",
+    "videoWebm": "img/hero-gradient.webm",
+    "videoMp4": "img/hero-gradient.mp4"
+  }
 }

@@ -221,4 +221,138 @@
     </footer>
 
   </body>
+
+  <script>
+(async () => {
+  try {
+    const res = await fetch('/data/home.ca.json', { cache: 'no-store' });
+    const data = await res.json();
+
+    // NAV
+    const navMenu = document.getElementById('nav-menu');
+    if (navMenu && data.nav?.links) {
+      // Mantén el dropdown de idioma tal cual; reemplazamos solo los 3 primeros enlaces
+      const staticLang = document.getElementById('nav-item-idioma');
+      navMenu.innerHTML = '';
+      data.nav.links.forEach(link => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="${link.href}">${link.label}</a>`;
+        navMenu.appendChild(li);
+      });
+      if (staticLang) navMenu.appendChild(staticLang);
+    }
+    const logoImg = document.getElementById('nav-logo');
+    if (logoImg && data.nav?.logo) logoImg.src = data.nav.logo;
+
+    // Idiomas (dropdown)
+    const langMenu = document.querySelector('#nav-item-idioma .dropdown-menu');
+    if (langMenu && data.nav?.languages) {
+      langMenu.innerHTML = `
+        <li><a href="${data.nav.languages.urlEs}">${data.nav.languages.labelEs || 'Cast'}</a></li>
+        <li><a href="${data.nav.languages.urlCa}">${data.nav.languages.labelCa || 'Cat'}</a></li>
+      `;
+    }
+
+    // HERO
+    const heroTitle = document.getElementById('hero-title');
+    const heroDesc = document.getElementById('hero-description');
+    const heroVideo = document.getElementById('hero-video');
+    if (heroTitle) heroTitle.textContent = data.hero?.title || '';
+    if (heroDesc) heroDesc.textContent = data.hero?.description || '';
+    if (heroVideo && data.hero) {
+      if (data.hero.poster) heroVideo.setAttribute('poster', data.hero.poster);
+      const sources = heroVideo.querySelectorAll('source');
+      if (sources[0] && data.hero.videoWebm) sources[0].src = data.hero.videoWebm;
+      if (sources[1] && data.hero.videoMp4) sources[1].src = data.hero.videoMp4;
+      heroVideo.load();
+    }
+
+    // ABOUT
+    const aboutTitle = document.getElementById('about-title');
+    const aboutDesc = document.getElementById('about-description');
+    const aboutList = document.querySelector('.about-services');
+    if (aboutTitle) aboutTitle.textContent = data.about?.title || '';
+    if (aboutDesc) aboutDesc.textContent = data.about?.description || '';
+    if (aboutList && Array.isArray(data.about?.services)) {
+      aboutList.innerHTML = '';
+      data.about.services.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        aboutList.appendChild(li);
+      });
+    }
+
+    // PROCESS
+    const procTitleEl = document.querySelector('#process .section-title');
+    const procDescEl = document.querySelector('#process .section-description');
+    const procGrid = document.querySelector('#process .process-grid');
+    if (procTitleEl) procTitleEl.innerHTML = (data.process?.sectionTitle || '').replace(/\n/g, '<br>');
+    if (procDescEl) procDescEl.textContent = data.process?.sectionDescription || '';
+    if (procGrid && Array.isArray(data.process?.steps)) {
+      procGrid.innerHTML = '';
+      data.process.steps.forEach((s, i) => {
+        const card = document.createElement('div');
+        card.className = `process-card step-${i+1}`;
+        card.innerHTML = `
+          <span class="process-number">${s.number || ''}</span>
+          <p>${s.title ? `<strong>${s.title}</strong><br>` : ''}${s.text || ''}</p>
+        `;
+        procGrid.appendChild(card);
+      });
+    }
+
+    // TEAM
+    const teamGrid = document.querySelector('.team-grid');
+    if (teamGrid && Array.isArray(data.team)) {
+      teamGrid.innerHTML = '';
+      data.team.forEach(member => {
+        const card = document.createElement('div');
+        card.className = 'team-card';
+        card.innerHTML = `
+          <div class="team-front">
+            <img src="${member.photo}" alt="${member.name}" class="team-photo">
+            <h3 class="team-name">${member.name}</h3>
+          </div>
+          <div class="team-back">
+            <h3 class="team-name">${member.name}</h3>
+            <p>${member.bio || ''}</p>
+            ${Array.isArray(member.bullets) ? `<ul>${member.bullets.map(b => `<li>${b}</li>`).join('')}</ul>` : ''}
+          </div>
+        `;
+        teamGrid.appendChild(card);
+      });
+    }
+
+    // FOOTER
+    const footerTitle = document.getElementById('footer-title');
+    const footerContact = document.getElementById('footer-contact');
+    const footerLegal = document.getElementById('footer-left');
+    const footerCopy = document.getElementById('footer-right');
+    const footerVideo = document.getElementById('footer-video');
+    if (footerTitle) footerTitle.textContent = data.footer?.title || '';
+    if (footerContact) {
+      // permite **negreta** con Markdown muy simple
+      footerContact.innerHTML = (data.footer?.contact || '')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n/g, '<br />');
+    }
+    if (footerLegal) {
+      footerLegal.textContent = data.footer?.legalText || 'Avís legal i Política de cookies';
+      footerLegal.href = data.footer?.legalHref || 'cookies.html';
+    }
+    if (footerCopy) footerCopy.textContent = data.footer?.copyright || '';
+    if (footerVideo && data.footer) {
+      if (data.footer.poster) footerVideo.setAttribute('poster', data.footer.poster);
+      const sv = footerVideo.querySelectorAll('source');
+      if (sv[0] && data.footer.videoWebm) sv[0].src = data.footer.videoWebm;
+      if (sv[1] && data.footer.videoMp4) sv[1].src = data.footer.videoMp4;
+      footerVideo.load();
+    }
+  } catch (e) {
+    console.warn('No s’ha pogut carregar /data/home.ca.json', e);
+  }
+})();
+</script>
+
+
 </html>
