@@ -36,7 +36,8 @@
     <div class="container">
       <h1 class="section-title">Avís Legal</h1>
       <div class="about-box">
-        <p>
+        <div id="legal-content"></div> <!-- aquí pintamos aviso-legal-ca.md -->
+        <!-- <p>
           En compliment amb el que disposa la Llei 34/2002, d'11 de juliol, de Serveis de la Societat de la Informació i Comerç Electrònic 
           (LSSI-CE), s'informa als usuaris del present lloc web de les següents dades legals:
         </p>
@@ -78,7 +79,7 @@
         <h2>Legislació aplicable</h2>
         <p>
           Les presents condicions es regiran per la legislació espanyola vigent i qualsevol controvèrsia que se'n pugui derivar serà sotmesa als jutjats i tribunals de la ciutat de Girona.
-        </p>
+        </p> -->
       </div>
     </div>
   </section>
@@ -86,6 +87,8 @@
     <div class="container">
       <h1 class="section-title">Política de Cookies</h1>
       <div class="about-box">
+        <div id="cookies-content"></div> <!-- aquí pintamos cookies-ca.md -->
+        <!--
         <h2 id="subtitle-cookies" class="subtitle-cookies">Què són les cookies?</h2>
         <p>
           Les cookies són petits arxius de text que s'instal·len al dispositiu de l'usuari quan visita determinades pàgines web. Serveixen per emmagatzemar i recuperar informació sobre la navegació i poden utilitzar-se per reconèixer l'usuari i millorar el servei ofert.
@@ -115,6 +118,7 @@
           <li><a href="https://support.microsoft.com/ca-ca/edge-clear-browser-data">Microsoft Edge</a></li>
           <li><a href="https://support.apple.com/ca-ca/guide/safari/sfri11471/mac">Safari</a></li>
         </ul>
+        -->
       </div>
     </div>
   </section>
@@ -124,4 +128,49 @@
   </footer>
 
 </body>
+<!-- Render de Markdown con marked -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+(async () => {
+  // Util para quitar el front matter YAML si lo usas en los .md
+  const stripFrontMatter = (md) => md.replace(/^---[\s\S]*?---\s*/,'').trim();
+
+  // Carga un MD y lo inyecta en un contenedor
+  async function loadMD(mdPath, containerSelector, titleSelector) {
+    try {
+      const res = await fetch(mdPath, { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      let text = await res.text();
+
+      // Saca el título del front matter si existe
+      const fmTitleMatch = text.match(/title:\s*["']?(.+?)["']?\s*$/m);
+      if (fmTitleMatch && titleSelector) {
+        const h1 = document.querySelector(titleSelector);
+        if (h1) h1.textContent = fmTitleMatch[1];
+      }
+
+      text = stripFrontMatter(text);
+      const html = marked.parse(text);
+      const box = document.querySelector(containerSelector);
+      if (box) box.innerHTML = html;
+    } catch (e) {
+      console.warn('No se pudo cargar', mdPath, e);
+    }
+  }
+
+  // CAT: carga aviso legal y cookies
+  await loadMD('/content/legal/aviso-legal-ca.md', '#legal-content', '#legal-title');
+  await loadMD('/content/legal/cookies-ca.md',     '#cookies-content', '#cookies-title');
+
+  // (Opcional) Nav idioma dinámico – ya lo tienes estático, pero por si quieres homogeneizar:
+  const langMenu = document.querySelector('#nav-item-idioma .dropdown-menu');
+  if (langMenu) {
+    langMenu.innerHTML = `
+      <li><a href="index-cast.html">Cast</a></li>
+      <li><a href="index.html">Cat</a></li>
+    `;
+  }
+})();
+</script>
+
 </html>
