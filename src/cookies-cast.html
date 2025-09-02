@@ -36,6 +36,8 @@
     <div class="container">
       <h1 class="section-title">Aviso Legal</h1>
       <div class="about-box">
+        <div id="legal-content"></div>
+        <!--
         <p>
           En cumplimiento con lo que dispone la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y Comercio Electrónico 
           (LSSI-CE), se informa a los usuarios del presente sitio web de los siguientes datos legales:
@@ -89,6 +91,7 @@
           Las presentes condiciones se regirán por la legislación española vigente y cualquier controversia que se pueda derivar será 
           sometida a los juzgados y tribunales de la ciudad de Girona.
         </p>
+        -->
       </div>
     </div>
   </section>
@@ -96,6 +99,8 @@
     <div class="container">
       <h1 class="section-title">Política de Cookies</h1>
       <div class="about-box">
+        <div id="cookies-content"></div>
+        <!--
         <h2 id="subtitle-cookies" class="subtitle-cookies">Que son las cookies?</h2>
         <p>
           Las cookies son pequeños archivos de texto que se instalan en el dispositivo del usuario cuando visita determinadas páginas web. 
@@ -131,6 +136,7 @@
           <li><a href="https://support.microsoft.com/ca-ca/edge-clear-browser-data">Microsoft Edge</a></li>
           <li><a href="https://support.apple.com/ca-ca/guide/safari/sfri11471/mac">Safari</a></li>
         </ul>
+        -->
       </div>
     </div>
   </section>
@@ -140,4 +146,36 @@
   </footer>
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+(async () => {
+  const stripFrontMatter = (md) => md.replace(/^---[\s\S]*?---\s*/, '').trim();
+
+  async function loadMD(mdPath, containerSelector, titleSelector) {
+    try {
+      const res = await fetch(mdPath, { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      let text = await res.text();
+
+      // Si el .md trae title en el front matter, úsalo para el <h1>
+      const fmTitleMatch = text.match(/title:\s*["']?(.+?)["']?\s*$/m);
+      if (fmTitleMatch && titleSelector) {
+        const h1 = document.querySelector(titleSelector);
+        if (h1) h1.textContent = fmTitleMatch[1];
+      }
+
+      text = stripFrontMatter(text);
+      const html = marked.parse(text);
+      const box = document.querySelector(containerSelector);
+      if (box) box.innerHTML = html;
+    } catch (e) {
+      console.warn('No se pudo cargar', mdPath, e);
+    }
+  }
+
+  // ES: carga Aviso Legal y Cookies desde los ficheros editables del CMS
+  await loadMD('/content/legal/aviso-legal-es.md', '#legal-content',   '#legal-title');
+  await loadMD('/content/legal/cookies-es.md',     '#cookies-content', '#cookies-title');
+})();
+</script>
 </html>
