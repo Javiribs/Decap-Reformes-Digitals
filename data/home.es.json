@@ -1,11 +1,83 @@
 {
-  "heroTitle": "Rediseño y actualización de webs",
-  "heroSubtitle": "Modernizamos webs antiguas para que vuelvan a convertir: diseño, funcionalidad y mantenimiento.",
-  "heroCtaLabel": "Pide presupuesto",
-  "heroCtaHref": "#contacto",
-  "heroMedia": "",
-  "usp": [],
-  "services": [],
-  "process": [],
-  "contactCta": { "title": "¿Quieres modernizar tu web?", "subtitle": "", "button": "Hablemos", "href": "#contacto" }
+  "nav": {
+    "logo": "img/RDBlack.png",
+    "links": [
+      { "label": "Qué hacemos", "href": "#hero" },
+      { "label": "Cómo lo hacemos", "href": "#about" },
+      { "label": "Fem-ho", "href": "#process" }
+    ],
+    "languages": {
+      "labelEs": "Cast",
+      "urlEs": "index-cast.html",
+      "labelCa": "Cat",
+      "urlCa": "index.html"
+    }
+  },
+  "hero": {
+    "title": "Webs funcionales y específicas para tu negocio",
+    "description": "Diseñamos, reformamos u optimizamos tu web con claridad, proximidad y precios asequibles.\nPara que tengas una presencia digital que te represente y funcione.",
+    "poster": "img/hero-poster.jpg",
+    "videoWebm": "img/hero-gradient.webm",
+    "videoMp4": "img/hero-gradient.mp4"
+  },
+  "about": {
+    "title": "Consultoria Digital",
+    "description": "Te damos soporte real y práctico para hacer conocer tu negocio mediante el mundo digital:",
+    "services": [
+      "Identidad gráfica y digital",
+      "Programación y Disseño web personalizado",
+      "Visibilidad, SEO, SEM, GEO, campañas y automatitzaciones",
+      "Redes Sociales",
+      "e-commerce",
+      "Análisis y optimización de resultados",
+      "Mentoria y formación digital personalizada",
+      "Control de la productividad a tu empresa"
+    ]
+  },
+  "process": {
+    "sectionTitle": "Un proceso senzillo\nUn resultado que tiene sentido",
+    "sectionDescription": "Hacer que la web de tu negocio sea funcional y atractiva es una tarea compleja. Este es nuestro método:",
+    "steps": [
+      { "number": "01.", "title": "Reunión inicial:", "text": "Estudiamos a fondo tu empresa y los objetivos que se quieren conseguir." },
+      { "number": "02.", "title": "Propuesta de diseño:", "text": "Te presentamos una propuesta visual que refleje tu identidad." },
+      { "number": "03.", "title": "Validación:", "text": "Escuchamos tu feedback y ajustamos el diseño según sea necesario." },
+      { "number": "04.", "title": "Programación:", "text": "Convertimos el diseño en una web funcional, optimizada y adaptada." },
+      { "number": "05.", "title": "Entrega y revisión final:", "text": "Publicamos la web cuando estés totalmente satisfecho/a." },
+      { "number": "06.", "title": "", "text": "Tiempo estimado: entre 4 y 6 semanas.\nPrecio a partir de 1.000 €." }
+    ]
+  },
+  "team": [
+    {
+      "name": "Marc Duran Llauger",
+      "photo": "img/Marc-foto-perfil.jpg",
+      "frontDesc": "",
+      "bio": "Mirada estratégica orientada a resultados. Es quien se encarga de que tu web no sólo se vea bien, sino que funcione.",
+      "bullets": [
+        "Máster en Marketing Digital por ESIC.",
+        "Más de 8 años de experiencia en el sector digital.",
+        "SEO, SEM y copywriting."
+      ]
+    },
+    {
+      "name": "Javier Ribas Pascual",
+      "photo": "img/foto perfil.JPG",
+      "frontDesc": "",
+      "bio": "Creativitdad enfocada en crear y mejorar productos digitales. Responsable de diseñar y desarrollar webs, softwares y aplicaciones.",
+      "bullets": [
+        "Programador (Especialista en JS, Node.JS, html y css).",
+        "Máster en UX/UI por Neoland.",
+        "Abogado por la UOC."
+      ]
+    }
+  ],
+  "footer": {
+    "title": "¿Aún tienes dudas?",
+    "contact": "Llámanos al **123 456 789**\nEscríbenos directamente **WhatsApp**\nEnvíanos un correo a **hola@reformesdigitals.com**",
+    "legalText": "Aviso legal y Política de cookies",
+    "legalHref": "cookies-cast.html",
+    "copyright": "Reformes Digitals © 2025",
+    "poster": "img/hero-poster.jpg",
+    "videoWebm": "img/hero-gradient.webm",
+    "videoMp4": "img/hero-gradient.mp4"
+  }
 }
