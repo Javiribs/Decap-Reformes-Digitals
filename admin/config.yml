@@ -1,0 +1,144 @@
+backend:
+  name: git-gateway   # si usarás Netlify Identity + Git Gateway
+  branch: main
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+slug:
+  encoding: "unicode"
+  clean_accents: true
+
+collections:
+  # HOME (Català)
+  - name: "home_ca"
+    label: "🏠 Home (Català)"
+    delete: false
+    editor: { preview: false }
+    files:
+      - label: "Contingut Home (CA)"
+        name: "home"
+        file: "data/home.ca.json"
+        fields:
+          - { label: "Hero · Títol", name: "heroTitle", widget: "string" }
+          - { label: "Hero · Subtítol", name: "heroSubtitle", widget: "text" }
+          - { label: "Hero · Text botó", name: "heroCtaLabel", widget: "string", default: "Demana pressupost" }
+          - { label: "Hero · Enllaç botó", name: "heroCtaHref", widget: "string", default: "#contacte" }
+          - { label: "Hero · Vídeo o imatge (opcional)", name: "heroMedia", widget: "image", required: false }
+
+          - label: "Punts clau (USP)"
+            name: "usp"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Títol", name: "title", widget: "string" }
+              - { label: "Text", name: "text", widget: "text" }
+              - { label: "Icona/Imatge (opcional)", name: "icon", widget: "image", required: false }
+
+          - label: "Serveis (llistat breu)"
+            name: "services"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Títol", name: "title", widget: "string" }
+              - { label: "Descripció", name: "description", widget: "text" }
+
+          - label: "Procés (passos)"
+            name: "process"
+            widget: "list"
+            summary: "{{fields.stepTitle}}"
+            fields:
+              - { label: "Títol del pas", name: "stepTitle", widget: "string" }
+              - { label: "Text", name: "stepText", widget: "text" }
+
+          - label: "Bloc de contacte (CTA final)"
+            name: "contactCta"
+            widget: "object"
+            fields:
+              - { label: "Títol", name: "title", widget: "string" }
+              - { label: "Subtítol", name: "subtitle", widget: "text", required: false }
+              - { label: "Text botó", name: "button", widget: "string", default: "Parlem" }
+              - { label: "Enllaç botó", name: "href", widget: "string", default: "#contacte" }
+
+  # HOME (Castellano)
+  - name: "home_es"
+    label: "🏠 Home (Castellano)"
+    delete: false
+    editor: { preview: false }
+    files:
+      - label: "Contenido Home (ES)"
+        name: "home"
+        file: "data/home.es.json"
+        fields:
+          - { label: "Hero · Título", name: "heroTitle", widget: "string" }
+          - { label: "Hero · Subtítulo", name: "heroSubtitle", widget: "text" }
+          - { label: "Hero · Texto botón", name: "heroCtaLabel", widget: "string", default: "Pide presupuesto" }
+          - { label: "Hero · Enlace botón", name: "heroCtaHref", widget: "string", default: "#contacto" }
+          - { label: "Hero · Vídeo o imagen (opcional)", name: "heroMedia", widget: "image", required: false }
+
+          - label: "Puntos clave (USP)"
+            name: "usp"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Texto", name: "text", widget: "text" }
+              - { label: "Icono/Imagen (opcional)", name: "icon", widget: "image", required: false }
+
+          - label: "Servicios (listado breve)"
+            name: "services"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Descripción", name: "description", widget: "text" }
+
+          - label: "Proceso (pasos)"
+            name: "process"
+            widget: "list"
+            summary: "{{fields.stepTitle}}"
+            fields:
+              - { label: "Título del paso", name: "stepTitle", widget: "string" }
+              - { label: "Texto", name: "stepText", widget: "text" }
+
+          - label: "Bloque de contacto (CTA final)"
+            name: "contactCta"
+            widget: "object"
+            fields:
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Subtítulo", name: "subtitle", widget: "text", required: false }
+              - { label: "Texto botón", name: "button", widget: "string", default: "Hablemos" }
+              - { label: "Enlace botón", name: "href", widget: "string", default: "#contacto" }
+
+  # PÁGINAS LEGALES (CA/ES)
+  - name: "legal"
+    label: "📜 Legal"
+    delete: false
+    files:
+      - label: "Avís legal (CA)"
+        name: "aviso_ca"
+        file: "content/legal/aviso-legal-ca.md"
+        fields:
+          - { label: "Títol", name: "title", widget: "string", default: "Avís legal" }
+          - { label: "Contingut", name: "body", widget: "markdown" }
+
+      - label: "Aviso legal (ES)"
+        name: "aviso_es"
+        file: "content/legal/aviso-legal-es.md"
+        fields:
+          - { label: "Título", name: "title", widget: "string", default: "Aviso legal" }
+          - { label: "Contenido", name: "body", widget: "markdown" }
+
+      - label: "Galetes / Cookies (CA)"
+        name: "cookies_ca"
+        file: "content/legal/cookies-ca.md"
+        fields:
+          - { label: "Títol", name: "title", widget: "string", default: "Política de galetes" }
+          - { label: "Contingut", name: "body", widget: "markdown" }
+
+      - label: "Cookies (ES)"
+        name: "cookies_es"
+        file: "content/legal/cookies-es.md"
+        fields:
+          - { label: "Título", name: "title", widget: "string", default: "Política de cookies" }
+          - { label: "Contenido", name: "body", widget: "markdown" }
