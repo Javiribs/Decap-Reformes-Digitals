@@ -1,0 +1,217 @@
+/* Importar fuente Inter desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600;900&display=swap');
+
+/* Aplicar Inter a toda la web */
+html,
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Ajustes de tipografía global */
+:root {
+  --hero-title-size: 3.5rem;   /* aprox. 56px */
+  --hero-desc-size: 1.125rem;  /* aprox. 18px */
+  --hero-gap: 2rem;            /* espacio entre columnas */
+}
+
+.container {
+  padding: 0 1.5rem;
+}
+
+/* ==========================
+   NAVBAR STYLES 
+   ========================== */
+
+#header {
+  background: #fff;
+  padding: 2rem 0;
+}
+
+/* Asegúrate en el HTML de que el <nav> está dentro de .container */
+#header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Ya no hace falta #nav.container */
+#nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+}
+
+/* Logo */
+#nav-logo-link {
+  padding: 0.5rem;
+  display: inline-block;
+}
+#nav-logo {
+  width: 56px;
+  height: auto;
+}
+
+/* Menú principal */
+#nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+  margin: 0;
+  padding: 0;
+}
+#nav-menu a {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #111111;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+#nav-menu a:hover {
+  color: var(--color-primary);
+}
+
+/* Desplegable de idioma */
+#nav-item-idioma {
+  position: relative;
+}
+#nav-item-idioma > a::after {
+  content: "▾";
+  margin-left: 0.25rem;
+  font-size: 0.75rem;
+}
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  white-space: nowrap;
+}
+#nav-item-idioma:hover .dropdown-menu {
+  display: block;
+}
+.dropdown-menu li a {
+  display: block;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: var(--color-text);
+}
+.dropdown-menu li a:hover {
+  background: #f5f5f5;
+}
+
+/* SECCIÓ COOKIES */
+#cookies {
+  background: white;
+  padding: 6rem 0;
+}
+
+#cookies .about-box {
+  background: #f4f4f4;
+  border-radius: 16px;
+  padding: 4rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+#cookies .section-title {
+  font-size: 4.5rem;      
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 0;
+  padding-left: -6rem;
+  padding-bottom: 4rem; 
+  padding-right: 20.5rem;
+}
+
+#cookies .about-box h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+#cookies .about-box p {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+#cookies .about-box .dades {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;         /* Aumenta tamaño de letra */
+  font-weight: 500;
+  line-height: 1.8;          /* Mejora lectura */
+  color: #222;
+}
+
+#cookies .about-box .dades li {
+  margin-bottom: 1rem;
+}
+
+/* Negrita antes de los dos puntos (:) */
+#cookies .about-box .dades li::before {
+  content: attr(data-label) ": ";
+  font-weight: 600;
+  color: #000;
+}
+
+
+#cookies .about-services {
+  list-style: none;
+  margin-bottom: 2rem;
+  padding: 0;
+}
+
+#cookies .about-services li {
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #ccc;
+}
+
+
+/* Estilos generales para la lista */
+ul.navegadors {
+  list-style: none;
+  padding-left: 0;
+  margin: 2rem 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #222;
+}
+
+/* Cada item de la llista */
+ul.navegadors li {
+  margin-bottom: 1rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+/* Pseudo-elemento decoratiu (viñeta) */
+ul.navegadors li::before {
+  content: "➤";
+  position: absolute;
+  left: 0;
+  color: #007acc;
+  font-size: 1rem;
+}
+
+/* Estilo del enlace */
+ul.navegadors a {
+  text-decoration: none;
+  color: #007acc;
+  transition: all 0.2s ease;
+}
+
+/* Efecto hover */
+ul.navegadors a:hover {
+  text-decoration: underline;
+  color: #005a99;
+}

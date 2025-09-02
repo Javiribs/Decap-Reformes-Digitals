@@ -1,0 +1,4 @@
+{
+  // Sin la barra inicial: Live Server montará <workspace>/src como /
+  "liveServer.settings.root": "/src"
+}

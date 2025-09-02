@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="cast" id="html-root">
+  <head id="head">
+    <meta charset="UTF-8" id="meta-charset" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="meta-viewport" />
+    <title id="title">Reformes Digitals</title>
+    <link rel="stylesheet" href="styles/reset.css" id="link-reset"/>
+    <link rel="stylesheet" href="styles/styles.css" id="link-styles"/>
+  </head>
+  <body id="body">
+
+    <!-- NAV BAR -->
+    <header id="header">
+      <nav id="nav" class="container">
+        <!-- Logo -->
+        <a id="nav-logo-link" href="index-cast.html">
+          <img id="nav-logo" src="img/RDBlack.png" alt="Reformes Digitals Logo" />
+        </a>
+
+        <!-- Menú de navegación -->
+        <ul id="nav-menu">
+          <li><a href="#hero">Que hacemos</a></li>
+          <li><a href="#about">Como lo hacemos</a></li>
+          <li><a href="#process">Fem-ho</a></li>
+
+           <!-- Desplegable de Idioma -->
+          <li id="nav-item-idioma" class="dropdown">
+            <a href="#" id="nav-link-idioma">Idioma</a>
+            <ul class="dropdown-menu">
+              <li><a href="index-cast.html">Cast</a></li>
+              <li><a href="index.html">Cat</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </header>  
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="container">
+        <!-- Vídeo de fondo optimizado con fallback -->
+        <video
+          id="hero-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          poster="img/hero-poster.jpg"
+        >
+          <source src="img/hero-gradient.webm" type="video/webm" />
+          <source src="img/hero-gradient.mp4"  type="video/mp4" />
+          <!-- Fallback para navegadores sin <video> -->
+          <img src="img/hero-poster.jpg" alt="Fons animat" />
+        </video>
+
+        <!-- Contenido sobre el vídeo -->
+        <div id="hero-content" class="container">
+          <h1 id="hero-title">Webs funcionales y específicas para tu negocio</h1>
+          <p id="hero-description">
+            Diseñamos, reformamos u optimizamos tu web con claridad, proximidad y precios asequibles.
+            Para que tengas una presencia digital que te represente y funcione.
+          </p>
+        </div>
+      </div> <!-- <- faltava tancar aquest div -->
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="container">
+        <!-- Caja gris -->
+        <div class="about-box">
+          <!-- Título -->
+          <h2 id="about-title">Consultoria Digital</h2>
+
+          <!-- Descripción -->
+          <p id="about-description">
+            Te damos soporte real y práctico para hacer conocer tu negocio mediante el mundo digital:
+          </p>
+
+          <!-- Servicios -->
+          <ul class="about-services">
+            <li>Identidad gráfica y digital</li>
+            <li>Programación y Disseño web personalizado</li>
+            <li>Visibilidad, SEO, SEM, GEO, campañas y automatitzaciones</li>
+            <li>Redes Sociales</li>
+            <li>e-commerce</li>
+            <li>Análisis y optimización de resultados</li>
+            <li>Mentoria y formación digital personalizada</li>
+            <li>Control de la productividad a tu empresa</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process" class="section-light">
+      <div class="container">
+        <h1 class="section-title">Un proceso senzillo<br>Un resultado que tiene sentido</h1>
+        <p class="section-description">
+          Hacer que la web de tu negocio sea funcional y atractiva es una tarea compleja. Este es nuestro método:
+        </p>
+
+        <div class="process-grid">
+          <!-- Card 1 -->
+          <div class="process-card step-1">
+            <span class="process-number">01.</span>
+            <p><strong>Reunión inicial:</strong><br>Estudiamos a fondo tu empresa y los objetivos que se quieren conseguir.</p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="process-card step-2">
+            <span class="process-number">02.</span>
+            <p><strong>Propuesta de diseño:</strong><br>Te presentamos una propuesta visual que refleje tu identidad.</p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="process-card step-3">
+            <span class="process-number">03.</span>
+            <p><strong>Validación:</strong><br>Escuchamos tu feedback y ajustamos el diseño según sea necesario.</p>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="process-card step-4">
+            <span class="process-number">04.</span>
+            <p><strong>Programación:</strong><br>Convertimos el diseño en una web funcional, optimizada y adaptada.</p>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="process-card step-5">
+            <span class="process-number">05.</span>
+            <p><strong>Entrega y revisión final:</strong><br>Publicamos la web cuando estés totalmente satisfecho/a.</p>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="process-card step-6">
+            <span class="process-number">06.</span>
+            <p>Tiempo estimado: entre 4 y 6 semanas.<br>Precio a partir de 1.000 €.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section id="team" class="section-light">
+      <div class="container">
+        <h1 class="section-title">Nuestro equipo</h1>
+
+          <div class="team-grid">
+            <!-- Tarjeta 1 -->
+            <div class="team-card">
+              <div class="team-front">
+                <img src="img/Marc-foto-perfil.jpg" alt="Marc Duran" class="team-photo">
+                <h3 class="team-name">Marc Duran Llauger</h3>
+              </div>
+              <div class="team-back">
+                <h3 class="team-name">Marc Duran Llauger</h3>
+                <p>Mirada estratégica orientada a resultados. Es quien se encarga de que tu web no sólo se vea bien, sino que funcione.</p>
+                <ul>
+                  <li>Máster en Marketing Digital por ESIC.</li>
+                  <li>Más de 8 años de experiencia en el sector digital.</li>
+                  <li>SEO, SEM y copywriting.</li>
+                </ul>
+              </div>
+            </div>
+
+
+            <!-- Tarjeta 2 -->
+            <div class="team-card">
+              <div class="team-front">
+                <img src="img/foto perfil.JPG" alt="Javier Ribas Pascual" class="team-photo">
+                <h3 class="team-name">Javier Ribas Pascual</h3>
+              </div>
+              <div class="team-back">
+                <h3 class="team-name">Javier Ribas Pascual</h3>
+                <p>Creativitdad enfocada en crear y mejorar productos digitales. Responsable de diseñar y desarrollar webs, softwares y aplicaciones.</p>
+                <ul>
+                  <li>Programador (Especialista en JS, Node.JS, html y css).</li>
+                  <li>Máster en UX/UI por Neoland.</li>
+                  <li>Abogado por la UOC.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+      <div class="container">
+        <!-- Vídeo de fons reutilitzat (mateixos assets que el HERO) -->
+        <video
+          id="footer-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          poster="img/hero-poster.jpg"
+        >
+          <source src="img/hero-gradient.webm" type="video/webm" />
+          <source src="img/hero-gradient.mp4"  type="video/mp4" />
+          <img src="img/hero-poster.jpg" alt="Fons animat" />
+        </video>
+
+        <!-- Contingut superposat -->
+        <div id="footer-content" class="container">
+          <h1 id="footer-title">¿Aún tienes dudas?</h1>
+
+          <p id="footer-contact">
+            Llámanos al <strong>123 456 789</strong><br />
+            Escríbenos directamente <strong>WhatsApp</strong><br />
+            Enviános un correo a <strong>hola@reformesdigitals.com</strong>
+          </p>
+
+          <a id="footer-left" href="cookies-cast.html">Aviso legal y Política de cookies</a>
+          <p id="footer-right">Reformes Digitals © 2025</p>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>

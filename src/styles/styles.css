@@ -1,0 +1,539 @@
+/* Importar fuente Inter desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600;900&display=swap');
+
+/* Aplicar Inter a toda la web */
+html,
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Ajustes de tipografía global */
+:root {
+  --hero-title-size: 3.5rem;   /* aprox. 56px */
+  --hero-desc-size: 1.125rem;  /* aprox. 18px */
+  --hero-gap: 2rem;            /* espacio entre columnas */
+}
+
+.container {
+  padding: 0 1.5rem;
+}
+
+/* ==========================
+   NAVBAR STYLES 
+   ========================== */
+
+#header {
+  background: #fff;
+  padding: 2rem 0;
+}
+
+/* Asegúrate en el HTML de que el <nav> está dentro de .container */
+#header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Ya no hace falta #nav.container */
+#nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+}
+
+/* Logo */
+#nav-logo-link {
+  padding: 0.5rem;
+  display: inline-block;
+}
+#nav-logo {
+  width: 56px;
+  height: auto;
+}
+
+/* Menú principal */
+#nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+  margin: 0;
+  padding: 0;
+}
+#nav-menu a {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #111111;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+#nav-menu a:hover {
+  color: var(--color-primary);
+}
+
+/* Desplegable de idioma */
+#nav-item-idioma {
+  position: relative;
+}
+#nav-item-idioma > a::after {
+  content: "▾";
+  margin-left: 0.25rem;
+  font-size: 0.75rem;
+}
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  white-space: nowrap;
+}
+#nav-item-idioma:hover .dropdown-menu {
+  display: block;
+}
+.dropdown-menu li a {
+  display: block;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: var(--color-text);
+}
+.dropdown-menu li a:hover {
+  background: #f5f5f5;
+}
+
+/* HERO */
+#hero {
+  position: relative;
+  overflow: hidden; /* mantiene el border-radius y recorta el vídeo */
+  width: 100%;
+}
+
+/* Vídeo como capa de fondo */
+#hero-video {
+  display: block;
+  width: 100%;
+  height: 80vh;
+  object-fit: cover;
+  border-radius: 16px;      /* esquinas redondeadas */
+}
+
+/* Contenido superpuesto */
+#hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  padding: 3rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
+  gap: 1.5rem;              /* espacio entre filas/columnas */
+  width: 100%;
+  padding: 0 2rem;
+}
+
+/* Titular: fila 1, columnas 1–2 */
+#hero-title {
+  grid-column: 1 / span 2;
+  grid-row: 1;
+  font-size: 4.5rem;
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 0;
+  padding-left: 6rem;
+  padding-bottom: 2rem;
+}
+
+/* Párrafo: fila 2, columnas 2–3 */
+#hero-description {
+  grid-column: 2 / span 2;
+  grid-row: 2;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.6;
+  margin: 0;
+  padding-right: 6rem; 
+}
+
+/* ABOUT */
+#about {
+  background: white;
+  padding: 6rem 0; 
+}
+
+.about-box {
+  background: #f4f4f4;
+  border-radius: 16px;
+  padding-left: 4rem;
+  padding-top: 4rem;
+  padding-right: auto;
+}
+
+/* Título del bloque about */
+#about-title {
+  font-size: 4.5rem;      
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 0;
+  padding-left: -6rem;
+  padding-bottom: 2rem; 
+  padding-right: 20.5rem;
+}
+
+/* Párrafo de descripción */
+#about-description {
+  font-size: 1.5rem;     
+  font-weight: 600;
+  line-height: 1.6;
+  margin: 0;
+  padding-top: 2rem;
+  padding-left: 26rem;
+  padding-right: 4rem;
+  padding-bottom: 2.5rem;
+}
+
+/* Lista de servicios */
+.about-services {
+  list-style: none;
+  padding-left: 26rem;
+  margin: 0;
+  padding-bottom: 4rem;
+  padding-right: 4rem;
+}
+
+.about-services li {
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #ccc;
+  transition: transform 0.2s ease, color 0.2s ease;
+  cursor: default;
+}
+
+.about-services li:hover {
+  transform: translateY(-4px);
+  color: var(--color-primary); /* opcional: cambia el color al hacer hover */
+}
+
+
+/* PROCESS */
+#process {
+  background-color: #ffffff;
+  padding: 0rem 2rem 6rem 2rem;
+}
+
+/* Título principal */
+#process .section-title {
+  font-size: 4.5rem;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 4rem;
+  padding-left: 2rem;
+}
+
+.section-description {
+  font-size: 1.5rem;     
+  font-weight: 600;
+  line-height: 1.6;
+  margin: 0;
+  padding-left: 2rem;
+  padding-bottom: 2.5rem;
+}
+
+
+/* Grid de tarjetas */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+/* Tarjetas individuales base */
+.process-card {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #000;
+  transition: transform 0.3s ease;
+}
+
+/* Efecto al pasar el cursor (opcional) */
+.process-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Gradientes individuales por tarjeta adaptados a la nueva paleta */
+.step-1 {
+  background: linear-gradient(135deg, rgba(0, 225, 255, 0.25), rgba(241, 241, 241, 0.9));
+}
+
+.step-2 {
+  background: linear-gradient(135deg, rgba(85, 105, 255, 0.25), rgba(241, 241, 241, 0.9));
+}
+
+.step-3 {
+  background: linear-gradient(135deg, rgba(30, 144, 255, 0.2), rgba(241, 241, 241, 0.95));
+}
+
+.step-4 {
+  background: linear-gradient(135deg, rgba(85, 105, 255, 0.2), rgba(241, 241, 241, 0.95));
+}
+
+.step-5 {
+  background: linear-gradient(135deg, rgba(0, 51, 204, 0.15), rgba(241, 241, 241, 0.95));
+}
+
+.step-6 {
+  background: linear-gradient(135deg, rgba(0, 225, 255, 0.3), rgba(241, 241, 241, 0.85));
+}
+
+
+/* Número destacado */
+.process-number {
+  display: block;
+  font-weight: 800;
+  font-size: 1rem;
+  color: #0b0b0b;
+  margin-bottom: 0.5rem;
+}
+
+/* Título dentro del párrafo */
+.process-card strong {
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 0.2rem;
+}
+
+
+/* TEAM SECTION */
+#team {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  background: #fff;
+}
+
+#team .section-title {
+  font-size: 4.5rem;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 3rem;
+  padding-left: 3rem;
+  color: var(--color-heading);
+}
+
+/* GRID DE TARJETAS */
+.team-grid {
+  display: flex;
+  justify-content: center;
+  gap: 6rem 6rem;
+  flex-wrap: wrap;
+  padding: 2rem 4rem;
+}
+
+/* TARJETA */
+.team-card {
+  position: relative;
+  width: 400px;
+  height: 520px;
+  perspective: 1000px;
+  background: linear-gradient(-135deg, rgba(180, 220, 255, 0.6), rgba(240, 240, 240, 0.6));
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.6s;
+}
+
+.team-card:hover {
+  transform: translateY(-8px);
+}
+
+/* FRONT: FOTO + NOM */
+.team-front {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.team-photo {
+  width: 280px;
+  height: 360px;
+  border-radius: 16px;
+  object-fit: cover;
+  margin-bottom: 2rem;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15); /* Más sombra para destacar */
+}
+
+
+.team-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111;
+  text-align: center;
+}
+
+/* BACK: EXPERIÈNCIA */
+.team-back {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.team-back h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 2rem;
+}
+
+.team-back p {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #111;
+  margin-bottom: 2rem;
+  text-align: left;
+  line-height: 1.5;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.team-back ul {
+  padding-left: 0;
+  margin: 0;
+}
+
+.team-back li {
+  position: relative;
+  padding-left: 1.5rem; /* espacio para la viñeta */
+  margin-bottom: 1.2rem;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  font-weight: 500;
+  color: #222;
+}
+
+.team-back li::before {
+  content: "•"; /* viñeta clásica */
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+  color: #555;       
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+/* EFECTE HOVER */
+.team-card:hover .team-front {
+  opacity: 0;
+}
+.team-card:hover .team-back {
+  opacity: 1;
+}
+
+
+/* FOOTER */
+#footer {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 6rem;
+  margin-bottom: 4rem;
+}
+
+/* Vídeo de fons */
+#footer-video {
+  display: block;
+  width: 100%;
+  height: 70vh;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+/* Contingut en grid: 3x3 */
+#footer-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto auto;
+  gap: 1.5rem;
+  width: 100%;
+  padding: 0 6rem;
+}
+
+/* Row 1 - Col 1: Títol */
+#footer-title {
+  grid-column: 1 / 3;
+  grid-row: 1;
+  font-size: 4.5rem;
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 0;
+  color: #000;
+  padding-top: 2rem;
+  padding-left: 6rem;
+  padding-bottom: 4rem;
+}
+
+/* Row 2 - Col 2: Contacte */
+#footer-contact {
+  grid-column: 2 / 3;
+  grid-row: 2;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: #000;
+  padding-bottom: 4rem;
+}
+
+/* Row 3 - Col 1: Legal esquerra */
+#footer-left {
+  grid-column: 1 / 2;
+  grid-row: 3;
+  font-size: 0.9rem;
+  color: #222;
+  padding-left: 6rem;
+}
+
+/* Row 3 - Col 2: Legal centre (opcional) */
+#footer-middle {
+  grid-column: 2 / 3;
+  grid-row: 3;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #222;
+}
+
+/* Row 3 - Col 3: Legal dreta */
+#footer-right {
+  grid-column: 3 / 4;
+  grid-row: 3;
+  font-size: 0.9rem;
+  text-align: right;
+  color: #222;
+  padding-right: 6rem;
+}
