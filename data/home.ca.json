@@ -2,9 +2,18 @@
   "nav": {
     "logo": "img/RDBlack.png",
     "links": [
-      {"label": "Què fem", "href": "#hero"},
-      {"label": "Com ho fem", "href": "#about"},
-      {"label": "Fem-ho", "href": "#process"}
+      {
+        "label": "Què fem",
+        "href": "#hero"
+      },
+      {
+        "label": "Com ho fem",
+        "href": "#about"
+      },
+      {
+        "label": "Fem-ho",
+        "href": "#process"
+      }
     ],
     "languages": {
       "labelCa": "Cat",
@@ -28,7 +37,7 @@
       "Programació i Disseny web personalitzat",
       "Visibilitat, SEO, SEM, GEO, campanyes i automatitzacions",
       "Xarxes Socials",
-      "e-commerce",
+      "E-commerce",
       "Anàlisi i optimització de resultats",
       "Mentoria i formació digital personalitzada",
       "Control de la productivitat a la teva empresa"
@@ -38,12 +47,36 @@
     "sectionTitle": "Un procés senzill\nUn resultat que té sentit",
     "sectionDescription": "Fer la web del teu negoci no hauria de ser complicat. Aquest és el nostre mètode:",
     "steps": [
-      {"number": "01.", "title": "Reunió inicial:", "text": "Coneixem a fons el teu negoci i el que vols aconseguir amb la web."},
-      {"number": "02.", "title": "Proposta de disseny:", "text": "Et presentem una proposta visual que reflecteixi la teva identitat."},
-      {"number": "03.", "title": "Validació:", "text": "Escoltem el teu feedback i ajustem el disseny segons calgui."},
-      {"number": "04.", "title": "Programació:", "text": "Convertim el disseny en una web funcional, optimitzada i adaptada."},
-      {"number": "05.", "title": "Entrega i revisió final:", "text": "Publiquem la web quan estiguis totalment satisfet/a."},
-      {"number": "06.", "title": "", "text": "Temps estimat: entre 4 i 6 setmanes.\nPreu a partir de 1.000 €"}
+      {
+        "number": "01.",
+        "title": "Reunió inicial:",
+        "text": "Coneixem a fons el teu negoci i el que vols aconseguir amb la web."
+      },
+      {
+        "number": "02.",
+        "title": "Proposta de disseny:",
+        "text": "Et presentem una proposta visual que reflecteixi la teva identitat."
+      },
+      {
+        "number": "03.",
+        "title": "Validació:",
+        "text": "Escoltem el teu feedback i ajustem el disseny segons calgui."
+      },
+      {
+        "number": "04.",
+        "title": "Programació:",
+        "text": "Convertim el disseny en una web funcional, optimitzada i adaptada."
+      },
+      {
+        "number": "05.",
+        "title": "Revisió final",
+        "text": "Verifiquem disseny, contingut, navegació, idiomes i funcionalitats."
+      },
+      {
+        "number": "06.",
+        "title": "Entrega",
+        "text": "Publiquem la web a la xarxa i facilitem accessos i formació bàsica."
+      }
     ]
   },
   "team": [
