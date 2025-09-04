@@ -230,50 +230,51 @@
     </footer>
 
   </body>
-
-  <script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
 (async () => {
-  const base = '/content/home/es';
+  // === Config de esta página (es) ===
+  const BASE = '/content/home/es'; // en index-cast.html usa '/content/home/es'
 
-  async function loadText(path) {
-    const res = await fetch(path, { cache: 'no-store' });
-    return res.ok ? res.text() : '';
+  async function get(path) {
+    const r = await fetch(path, { cache: 'no-store' });
+    return r.ok ? r.text() : '';
   }
 
-  // --- NAV ---
+  // ------- NAV (opcional si quieres cargarlo desde MD) -------
+  // (si no lo necesitas, puedes omitir esta parte)
   try {
-    const navFM = await loadText(`${base}/nav.md`);
-    // Front-matter muy simple (logo + links)
-    const fmMatch = navFM.match(/^---\n([\s\S]*?)\n---/);
-    let logo = 'img/RDBlack.png', links = [];
-    if (fmMatch) {
-      const yml = fmMatch[1];
+    const navRaw = await get(`${BASE}/nav.md`);
+    const fm = navRaw.match(/^---\n([\s\S]*?)\n---/);
+    if (fm) {
+      const yml = fm[1];
       const logoM = yml.match(/logo:\s*(.+)/);
-      if (logoM) logo = logoM[1].trim().replace(/^"|"$/g, '');
-      const linkRegex = /-\s*{\s*label:\s*"(.*?)",\s*href:\s*"(.*?)"\s*}/g;
-      const linksArr = [...yml.matchAll(linkRegex)];
-      links = linksArr.map(m => ({ label: m[1], href: m[2] }));
-    }
-    const navLogo = document.getElementById('nav-logo');
-    if (navLogo) navLogo.src = `/src/${logo.replace(/^\.?\//,'')}`;
-
-    const navMenu = document.getElementById('nav-menu');
-    if (navMenu && links.length) {
+      const navLogo = document.getElementById('nav-logo');
+      if (navLogo && logoM) {
+        const logo = logoM[1].trim().replace(/^"|"$/g, '');
+        // Si subes el logo desde el admin, vendrá así: /assets/uploads/xxxx.png
+        navLogo.src = logo.startsWith('/assets/') ? logo : `/src/${logo.replace(/^\.?\//,'')}`;
+      }
+      const links = [...yml.matchAll(/-\s*{\s*label:\s*"(.*?)",\s*href:\s*"(.*?)"\s*}/g)]
+        .map(m => ({ label: m[1], href: m[2] }));
+      const ul = document.getElementById('nav-menu');
       const dropdown = document.getElementById('nav-item-idioma');
-      navMenu.innerHTML = '';
-      links.forEach(l => {
-        const li = document.createElement('li');
-        const a  = document.createElement('a');
-        a.href = l.href; a.textContent = l.label;
-        li.appendChild(a); navMenu.appendChild(li);
-      });
-      if (dropdown) navMenu.appendChild(dropdown);
+      if (ul && links.length) {
+        ul.innerHTML = '';
+        links.forEach(l => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = l.href; a.textContent = l.label;
+          li.appendChild(a); ul.appendChild(li);
+        });
+        if (dropdown) ul.appendChild(dropdown);
+      }
     }
-  } catch(e) { console.warn('NAV (ES) MD load error', e); }
+  } catch(e) { console.warn('NAV MD load error', e); }
 
-  // --- HERO ---
+  // ------- HERO -------
   {
-    const md = await loadText(`${base}/hero.md`);
+    const md = await get(`${BASE}/hero.md`);
     const lines = md.split('\n');
     const h1 = lines.find(l => l.startsWith('# '));
     const body = md.replace(/^# .*\n?/, '');
@@ -283,50 +284,75 @@
     if (descEl) descEl.innerHTML = marked.parse(body);
   }
 
-  // --- ABOUT ---
+  // ------- ABOUT (añadimos clase a los UL) -------
   {
-    const md = await loadText(`${base}/about.md`);
-    const html = marked.parse(md);
+    const md = await get(`${BASE}/about.md`);
     const aboutBox = document.querySelector('#about .about-box');
-    if (aboutBox) aboutBox.innerHTML = html;
-  }
-
-  // --- PROCESS ---
-  {
-    const md = await loadText(`${base}/process.md`);
-    const container = document.querySelector('#process .container');
-    if (container) {
-      // Quitamos título/desc/grid “de serie” y usamos el HTML del MD
-      const title = container.querySelector('.section-title');
-      const desc  = container.querySelector('.section-description');
-      const grid  = container.querySelector('.process-grid');
-      if (title) title.remove();
-      if (desc)  desc.remove();
-      if (grid)  grid.remove();
-      const html = marked.parse(md);
-      const wrapper = document.createElement('div');
-      wrapper.innerHTML = html;
-      container.appendChild(wrapper);
+    if (aboutBox) {
+      aboutBox.innerHTML = marked.parse(md);
+      // Cualquier lista dentro de About tendrá el estilo antiguo
+      aboutBox.querySelectorAll('ul').forEach(ul => ul.classList.add('about-services'));
     }
   }
 
-  // --- TEAM (dos miembros) ---
-  async function loadMember(slug, index) {
-    const md = await loadText(`${base}/team/${slug}.md`);
+  // ------- PROCESO -> tarjetas (recupera tu maquetación original) -------
+  // Lee la lista del MD (guiones) y crea las .process-card
+  {
+    const md = await get(`${BASE}/process.md`);
+    const container = document.querySelector('#process .container');
+    const grid = container.querySelector('.process-grid');
+    const titleNode = container.querySelector('.section-title');
+    const descNode  = container.querySelector('.section-description');
+
+    // título (primera línea con #)
+    const tMatch = md.match(/^#\s+(.+)$/m);
+    if (titleNode && tMatch) {
+      titleNode.innerHTML = tMatch[1]; // permite <br> si lo pusiste en el MD
+    }
+
+    // descripción: líneas tras el título hasta la primera lista
+    const afterTitle = md.split('\n').slice(md.split('\n').findIndex(l => /^#\s+/.test(l)) + 1);
+    const listStart  = afterTitle.findIndex(l => /^\s*-\s/.test(l));
+    const descLines  = listStart > -1 ? afterTitle.slice(0, listStart) : afterTitle;
+    if (descNode) descNode.innerHTML = marked.parse(descLines.join('\n'));
+
+    // items de la lista
+    const listLines = md.split('\n').filter(l => /^\s*-\s/.test(l));
+    if (grid) {
+      grid.innerHTML = ''; // limpia grid antiguo
+      listLines.forEach((raw, i) => {
+        // Formato esperado en MD: - **01. Título:** Texto...
+        const m = raw.match(/-\s*\*\*(\d+)\.\s*(.*?)\*\*:\s*(.*)$/);
+        const num = m ? m[1] : String(i + 1).padStart(2, '0');
+        const title = m ? m[2] : '';
+        const text  = m ? m[3] : raw.replace(/^\s*-\s*/, '');
+
+        const card = document.createElement('div');
+        card.className = `process-card step-${i + 1}`;
+        card.innerHTML = `
+          <span class="process-number">${num}.</span>
+          <p>${title ? `<strong>${title}</strong><br>` : ''}${text}</p>
+        `;
+        grid.appendChild(card);
+      });
+    }
+  }
+
+  // ------- EQUIPO (corrige rutas de imagen) -------
+  async function applyMember(slug, index) {
+    const md = await get(`${BASE}/team/${slug}.md`);
     if (!md) return;
-    const fm = md.match(/^---\n([\s\S]*?)\n---/);
-    let name = '', photo = '';
     let body = md;
+    let name = '', photo = '';
+    const fm = md.match(/^---\n([\s\S]*?)\n---/);
     if (fm) {
-      const yml = fm[1];
-      const nameM  = yml.match(/name:\s*"(.*)"/);
-      const photoM = yml.match(/photo:\s*"(.*)"/);
-      if (nameM)  name  = nameM[1];
-      if (photoM) photo = '/src/' + photoM[1].replace(/^\.?\//,'');
+      const y = fm[1];
+      const n = y.match(/name:\s*"(.*)"/);
+      const p = y.match(/photo:\s*"(.*)"/);
+      if (n) name  = n[1];
+      if (p) photo = p[1];
       body = md.replace(/^---[\s\S]*?---\n?/, '');
     }
-    const htmlBody = marked.parse(body);
-
     const cards = document.querySelectorAll('#team .team-card');
     const card  = cards[index];
     if (!card) return;
@@ -336,27 +362,34 @@
     const backName = card.querySelector('.team-back  .team-name');
     const backBox  = card.querySelector('.team-back');
 
-    if (frontImg && photo) frontImg.src = photo;
+    // FOTO: si viene de Decap => /assets/uploads/... úsala tal cual
+    // si es del repo /src/img => completa con /src/
+    const resolved = photo.startsWith('/assets/')
+      ? photo
+      : `/src/${photo.replace(/^\.?\//,'')}`;
+
+    if (frontImg && photo) frontImg.src = resolved;
     if (frontName && name) frontName.textContent = name;
     if (backName && name)  backName.textContent  = name;
 
     if (backBox) {
+      const html = marked.parse(body);
       const p = backBox.querySelector('p'); if (p) p.remove();
       const ul= backBox.querySelector('ul'); if (ul) ul.remove();
       const div = document.createElement('div');
-      div.innerHTML = htmlBody;
+      div.innerHTML = html;
       backBox.appendChild(div);
     }
   }
-  await loadMember('marc',   0);
-  await loadMember('javier', 1);
 
-  // --- FOOTER ---
+  await applyMember('marc',   0);
+  await applyMember('javier', 1);
+
+  // ------- FOOTER -------
   {
-    const md = await loadText(`${base}/footer.md`);
-    const html = marked.parse(md);
+    const md = await get(`${BASE}/footer.md`);
     const footerBox = document.getElementById('footer-content');
-    if (footerBox) footerBox.innerHTML = html;
+    if (footerBox) footerBox.innerHTML = marked.parse(md);
   }
 })();
 </script>
