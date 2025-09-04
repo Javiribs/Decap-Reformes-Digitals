@@ -13,11 +13,11 @@ const get = (obj, path, def = '') =>
 
 // Convierte "img/a.jpg" -> "/src/img/a.jpg"
 const assetUrl = (p, base = '/src/') => {
-  if (!p) return '';
-  if (p.startsWith('http')) return p;
-  if (p.startsWith('/')) return p;       // ya es absoluta
-  return base + p.replace(/^\.?\//, '');
-};
+ if (!p) return '';
+ if (p.startsWith('http')) return p;
+ if (p.startsWith('/')) return p;       // ya es absoluta
+ return base + p.replace(/^\.?\//, '');
+}; 
 
 // ===== Preview de HOME (CA/ES) =====
 function HomePreview({ entry }) {
@@ -37,7 +37,7 @@ function HomePreview({ entry }) {
         h('a', { id: 'nav-logo-link', href: '#' },
           h('img', {
             id: 'nav-logo',
-            src: assetUrl(nav.logo || 'img/RDBlack.png'),
+            src: assetUrl(nav.logo || '/src/img/RDBlack.png'),
             alt: 'Reformes Digitals Logo'
           })
         ),
