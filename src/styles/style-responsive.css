@@ -325,7 +325,7 @@ html {
   #footer-contact{
     max-width: 90%;     /* limita ancho para que no se desborde */
     margin: 0;     /* centra el bloque */
-    padding: 1rem;
+    padding: 1rem 2rem;
     word-break: break-word; /* evita que se salga con palabras largas */
     text-align: center; /* mejor alineado en pantallas pequeñas */
     line-height: 1.6;
