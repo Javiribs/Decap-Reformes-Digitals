@@ -1,155 +1,163 @@
-// 1) Asegura que cargas los CSS correctos (rutas absolutas desde tu servidor local)
-CMS.registerPreviewStyle("/src/styles/reset.css");
-CMS.registerPreviewStyle("/src/styles/styles.css");
-CMS.registerPreviewStyle("/src/styles/styles-cookies.css");
-// Si tienes uno específico para admin, añade: CMS.registerPreviewStyle('/styles-cookies.css');
+// ===== Estilos reales dentro del iframe de preview =====
+CMS.registerPreviewStyle('/src/styles/reset.css');
+CMS.registerPreviewStyle('/src/styles/styles.css');
+CMS.registerPreviewStyle('/src/styles/style-responsive.css'); // si existe
+CMS.registerPreviewStyle('/src/styles/styles-cookies.css');   // opcional
 
-// 2) Helpers
+// ===== Helpers =====
+const h = window.h; // Preact que expone Decap
 const get = (obj, path, def = '') =>
   path.split('.').reduce((o, k) => (o && o[k] !== undefined ? o[k] : undefined), obj) ?? def;
 
-// Normaliza rutas de assets para que no apunten a "img/..." relativo a /admin
+// Convierte "img/a.jpg" -> "/src/img/a.jpg". Si el server no sirve desde raíz, ver nota abajo.
 const assetUrl = (p, base = '/src/') => {
   if (!p) return '';
   if (p.startsWith('http')) return p;
-  if (p.startsWith('/')) return p;    // ya es absoluta
-  // "img/foto.jpg" -> "/src/img/foto.jpg"
+  if (p.startsWith('/')) return p;       // ya absoluta
   return base + p.replace(/^\.?\//, '');
 };
 
-// 3) Preview de Home (CA/ES)
-const HomePreview = ({ entry }) => {
-  const data = entry.getIn(['data']).toJS();
-
-  const nav = get(data, 'nav', {});
-  const hero = get(data, 'hero', {});
-  const about = get(data, 'about', {});
-  const process = get(data, 'process', {});
-  const team = get(data, 'team', []);
+// ===== Preview de HOME (CA/ES) =====
+function HomePreview({ entry }) {
+  const data   = entry.getIn(['data']).toJS();
+  const nav    = get(data, 'nav', {});
+  const hero   = get(data, 'hero', {});
+  const about  = get(data, 'about', {});
+  const proc   = get(data, 'process', {});
+  const team   = get(data, 'team', []);
   const footer = get(data, 'footer', {});
 
-  return (
-    <div id="body">
-      <header id="header">
-        <nav id="nav" className="container">
-          <a id="nav-logo-link" href="#">
-            <img id="nav-logo" src={assetUrl(nav.logo)} alt="Reformes Digitals Logo" />
-          </a>
-          <ul id="nav-menu">
-            {(nav.links || []).map((l, i) => (
-              <li key={i}><a href={l.href || '#'}>{l.label || ''}</a></li>
-            ))}
-            <li id="nav-item-idioma" className="dropdown">
-              <a href="#" id="nav-link-idioma">Idioma</a>
-              <ul className="dropdown-menu">
-                <li><a href="#">Cast</a></li>
-                <li><a href="#">Cat</a></li>
-              </ul>
-            </li>
-          </ul>
-        </nav>
-      </header>
+  return h('div', { id: 'body' },
 
-      {/* HERO */}
-      <section id="hero">
-        <div className="container">
-          <video
-            id="hero-video" autoPlay muted loop playsInline preload="auto"
-            poster={assetUrl(hero.poster)}
-          >
-            <source src={assetUrl(hero.videoWebm)} type="video/webm" />
-            <source src={assetUrl(hero.videoMp4)}  type="video/mp4" />
-          </video>
-          <div id="hero-content" className="container">
-            <h1 id="hero-title">{hero.title || ''}</h1>
-            <p id="hero-description">{hero.description || ''}</p>
-          </div>
-        </div>
-      </section>
+    // NAV
+    h('header', { id: 'header' },
+      h('nav', { id: 'nav', className: 'container' },
+        h('a', { id: 'nav-logo-link', href: '#' },
+          h('img', {
+            id: 'nav-logo',
+            src: assetUrl(nav.logo || 'img/RDBlack.png'),
+            alt: 'Reformes Digitals Logo'
+          })
+        ),
+        h('ul', { id: 'nav-menu' },
+          (get(nav, 'links', []) || []).map((l, i) =>
+            h('li', { key: i }, h('a', { href: l.href || '#' }, l.label || ''))
+          ),
+          h('li', { id: 'nav-item-idioma', className: 'dropdown' },
+            h('a', { href: '#', id: 'nav-link-idioma' }, 'Idioma'),
+            h('ul', { className: 'dropdown-menu' },
+              h('li', null, h('a', { href: '#' }, 'Cast')),
+              h('li', null, h('a', { href: '#' }, 'Cat'))
+            )
+          )
+        )
+      )
+    ),
 
-      {/* ABOUT */}
-      <section id="about">
-        <div className="container">
-          <div className="about-box">
-            <h2 id="about-title">{about.title || ''}</h2>
-            <p id="about-description">{about.description || ''}</p>
-            <ul className="about-services">
-              {(about.services || []).map((s, i) => <li key={i}>{s}</li>)}
-            </ul>
-          </div>
-        </div>
-      </section>
+    // HERO
+    h('section', { id: 'hero' },
+      h('div', { className: 'container' },
+        h('video', {
+          id: 'hero-video',
+          autoPlay: true, muted: true, loop: true, playsInline: true, preload: 'auto',
+          poster: assetUrl(hero.poster || 'img/hero-poster.jpg')
+        },
+          h('source', { src: assetUrl(hero.videoWebm || 'img/hero-gradient.webm'), type: 'video/webm' }),
+          h('source', { src: assetUrl(hero.videoMp4  || 'img/hero-gradient.mp4'),  type: 'video/mp4'  })
+        ),
+        h('div', { id: 'hero-content', className: 'container' },
+          h('h1', { id: 'hero-title' }, hero.title || ''),
+          h('p',  { id: 'hero-description' }, hero.description || '')
+        )
+      )
+    ),
 
-      {/* PROCESS */}
-      <section id="process" className="section-light">
-        <div className="container">
-          <h1
-            className="section-title"
-            dangerouslySetInnerHTML={{ __html: (process.sectionTitle || '').replace(/\n/g, '<br>') }}
-          />
-        <p className="section-description">{process.sectionDescription || ''}</p>
-          <div className="process-grid">
-            {(process.steps || []).map((s, i) => (
-              <div className={`process-card step-${i + 1}`} key={i}>
-                <span className="process-number">{s.number || ''}</span>
-                <p>
-                  {s.title ? <><strong>{s.title}</strong><br/></> : null}
-                  {s.text || ''}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+    // ABOUT
+    h('section', { id: 'about' },
+      h('div', { className: 'container' },
+        h('div', { className: 'about-box' },
+          h('h2', { id: 'about-title' }, about.title || ''),
+          h('p',  { id: 'about-description' }, about.description || ''),
+          h('ul', { className: 'about-services' },
+            (about.services || []).map((s, i) => h('li', { key: i }, s))
+          )
+        )
+      )
+    ),
 
-      {/* TEAM */}
-      <section id="team" className="section-light">
-        <div className="container">
-          <h1 className="section-title">El nostre equip</h1>
-          <div className="team-grid">
-            {(team || []).map((m, i) => (
-              <div className="team-card" key={i}>
-                <div className="team-front">
-                  <img src={assetUrl(m.photo)} alt={m.name || ''} className="team-photo" />
-                  <h3 className="team-name">{m.name || ''}</h3>
-                </div>
-                <div className="team-back">
-                  <h3 className="team-name">{m.name || ''}</h3>
-                  <p>{m.bio || ''}</p>
-                  {Array.isArray(m.bullets) && <ul>{m.bullets.map((b, j) => <li key={j}>{b}</li>)}</ul>}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+    // PROCESS
+    h('section', { id: 'process', className: 'section-light' },
+      h('div', { className: 'container' },
+        h('h1', {
+          className: 'section-title',
+          dangerouslySetInnerHTML: { __html: (proc.sectionTitle || '').replace(/\n/g, '<br>') }
+        }),
+        h('p', { className: 'section-description' }, proc.sectionDescription || ''),
+        h('div', { className: 'process-grid' },
+          (proc.steps || []).map((s, i) =>
+            h('div', { className: `process-card step-${i + 1}`, key: i },
+              h('span', { className: 'process-number' }, s.number || ''),
+              h('p', null,
+                s.title ? [h('strong', { key: 'st' }, s.title), h('br', { key: 'br' })] : null,
+                s.text || ''
+              )
+            )
+          )
+        )
+      )
+    ),
 
-      {/* FOOTER */}
-      <footer id="footer">
-        <div className="container">
-          <video
-            id="footer-video" autoPlay muted loop playsInline preload="auto"
-            poster={assetUrl(footer.poster)}
-          >
-            <source src={assetUrl(footer.videoWebm)} type="video/webm" />
-            <source src={assetUrl(footer.videoMp4)}  type="video/mp4" />
-          </video>
-          <div id="footer-content" className="container">
-            <h1 id="footer-title">{footer.title || ''}</h1>
-            <p id="footer-contact" dangerouslySetInnerHTML={{
+    // TEAM
+    h('section', { id: 'team', className: 'section-light' },
+      h('div', { className: 'container' },
+        h('h1', { className: 'section-title' }, 'El nostre equip'),
+        h('div', { className: 'team-grid' },
+          (team || []).map((m, i) =>
+            h('div', { className: 'team-card', key: i },
+              h('div', { className: 'team-front' },
+                h('img', { src: assetUrl(m.photo || 'img/Marc-foto-perfil.jpg'), alt: m.name || '', className: 'team-photo' }),
+                h('h3', { className: 'team-name' }, m.name || '')
+              ),
+              h('div', { className: 'team-back' },
+                h('h3', { className: 'team-name' }, m.name || ''),
+                h('p', null, m.bio || ''),
+                Array.isArray(m.bullets) ? h('ul', null, m.bullets.map((b, j) => h('li', { key: j }, b))) : null
+              )
+            )
+          )
+        )
+      )
+    ),
+
+    // FOOTER
+    h('footer', { id: 'footer' },
+      h('div', { className: 'container' },
+        h('video', {
+          id: 'footer-video',
+          autoPlay: true, muted: true, loop: true, playsInline: true, preload: 'auto',
+          poster: assetUrl(footer.poster || 'img/hero-poster.jpg')
+        },
+          h('source', { src: assetUrl(footer.videoWebm || 'img/hero-gradient.webm'), type: 'video/webm' }),
+          h('source', { src: assetUrl(footer.videoMp4  || 'img/hero-gradient.mp4'),  type: 'video/mp4'  })
+        ),
+        h('div', { id: 'footer-content', className: 'container' },
+          h('h1', { id: 'footer-title' }, footer.title || ''),
+          h('p', {
+            id: 'footer-contact',
+            dangerouslySetInnerHTML: {
               __html: (footer.contact || '')
                 .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                 .replace(/\n/g, '<br>')
-            }}/>
-            <a id="footer-left" href={footer.legalHref || '#'}>{footer.legalText || ''}</a>
-            <p id="footer-right">{footer.copyright || ''}</p>
-          </div>
-        </div>
-      </footer>
-    </div>
+            }
+          }),
+          h('a', { id: 'footer-left', href: footer.legalHref || '#' }, footer.legalText || ''),
+          h('p', { id: 'footer-right' }, footer.copyright || '')
+        )
+      )
+    )
   );
-};
+}
 
-// 4) Registra el preview para ambas colecciones
+// Registrar el template para CA y ES
 CMS.registerPreviewTemplate('home_ca', HomePreview);
 CMS.registerPreviewTemplate('home_es', HomePreview);
