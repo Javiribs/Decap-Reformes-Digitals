@@ -1,5 +1,8 @@
 local_backend: true
 
+editor:
+  preview: false
+
 backend:
   name: git-gateway
   branch: main
