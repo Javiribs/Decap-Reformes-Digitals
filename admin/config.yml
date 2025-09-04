@@ -1,14 +1,11 @@
 local_backend: true
 
-editor:
-  preview: false
-
 backend:
-  name: git-gateway
+  name: git-gateway        # para desarrollo local con decap-server
   branch: main
 
-media_folder: "assets/uploads"
-public_folder: "/assets/uploads"
+media_folder: "assets/uploads"   # dónde se guardan los archivos subidos en el repo
+public_folder: "/assets/uploads" # cómo se referencian en la web
 
 logo_url: "/src/img/RDBlack.png"
 
@@ -17,225 +14,151 @@ slug:
   clean_accents: true
 
 collections:
-  # HOME (Català) — corresponde a index.html
-  - name: "home_ca"
-    label: "🏠 Home (Català)"
-    delete: false
-    editor: { preview: false }
+  # =============== HOME (CATALÀ) [MD] ===============
+  - name: "home_ca_md"
+    label: "🏠 Home (Català) [MD]"
+    editor: { preview: true }
     files:
-      - label: "Contingut Home (CA)"
-        name: "home"
-        file: "data/home.ca.json"
+      - label: "Navegació"
+        name: "nav_ca"
+        file: "content/home/ca/nav.md"
         fields:
-          # NAV
-          - label: "Navegació"
-            name: "nav"
-            widget: "object"
-            fields:
-              - label: "Logo (opcional)"
-                name: "logo"
-                widget: "image"
-                required: false
-              - label: "Enllaços (ordre del menú)"
-                name: "links"
-                widget: "list"
-                collapsed: true
-                fields:
-                  - {label: "Etiqueta", name: "label", widget: "string"}
-                  - {label: "Href", name: "href", widget: "string"}
-              - label: "Idiomes"
-                name: "languages"
-                widget: "object"
-                fields:
-                  - {label: "Etiqueta CA", name: "labelCa", widget: "string", default: "Cat"}
-                  - {label: "URL CA", name: "urlCa", widget: "string", default: "index.html"}
-                  - {label: "Etiqueta ES", name: "labelEs", widget: "string", default: "Cast"}
-                  - {label: "URL ES", name: "urlEs", widget: "string", default: "index-cast.html"}
-
-          # HERO
-          - label: "Hero"
-            name: "hero"
-            widget: "object"
-            fields:
-              - {label: "Títol (H1)", name: "title", widget: "string"}
-              - {label: "Descripció", name: "description", widget: "text"}
-              - {label: "Pòster (imatge)", name: "poster", widget: "image", required: false}
-              - {label: "Vídeo WEBM", name: "videoWebm", widget: "image", required: false}
-              - {label: "Vídeo MP4", name: "videoMp4", widget: "image", required: false}
-
-          # ABOUT (Consultoria)
-          - label: "About (Consultoria)"
-            name: "about"
-            widget: "object"
-            fields:
-              - {label: "Títol", name: "title", widget: "string"}
-              - {label: "Descripció", name: "description", widget: "text"}
-              - label: "Serveis (llistat)"
-                name: "services"
-                widget: "list"
-                field: {label: "Servei", name: "item", widget: "string"}
-
-          # PROCESS
-          - label: "Procés"
-            name: "process"
-            widget: "object"
-            fields:
-              - {label: "Títol secció", name: "sectionTitle", widget: "string"}
-              - {label: "Descripció secció", name: "sectionDescription", widget: "text"}
-              - label: "Passos"
-                name: "steps"
-                widget: "list"
-                fields:
-                  - {label: "Número (01., 02., ...)", name: "number", widget: "string"}
-                  - {label: "Títol del pas (negreta)", name: "title", widget: "string"}
-                  - {label: "Text del pas", name: "text", widget: "text"}
-
-          # TEAM
-          - label: "Equip"
-            name: "team"
-            widget: "list"
-            summary: "{{fields.name}}"
-            fields:
-              - {label: "Nom", name: "name", widget: "string"}
-              - {label: "Foto", name: "photo", widget: "image"}
-              - {label: "Descripció curta (front)", name: "frontDesc", widget: "string", required: false}
-              - {label: "Bio (darrere)", name: "bio", widget: "text"}
-              - label: "Punts (darrere)"
-                name: "bullets"
-                widget: "list"
-                field: {label: "Punt", name: "item", widget: "string"}
-
-          # FOOTER
-          - label: "Peu de pàgina"
-            name: "footer"
-            widget: "object"
-            fields:
-              - {label: "Títol", name: "title", widget: "string"}
-              - {label: "Contacte (multilínia)", name: "contact", widget: "text"}
-              - {label: "Text enllaç legal", name: "legalText", widget: "string", default: "Avís legal i Política de cookies"}
-              - {label: "URL enllaç legal", name: "legalHref", widget: "string", default: "cookies.html"}
-              - {label: "Copyright", name: "copyright", widget: "string", default: "Reformes Digitals © 2025"}
-              - {label: "Pòster vídeo", name: "poster", widget: "image", required: false}
-              - {label: "Vídeo WEBM", name: "videoWebm", widget: "image", required: false}
-              - {label: "Vídeo MP4", name: "videoMp4", widget: "image", required: false}
-
-  # HOME (Castellano) — estructura gemela para index-cast.html
-  - name: "home_es"
-    label: "🏠 Home (Castellano)"
-    delete: false
-    editor: { preview: false }
-    files:
-      - label: "Contenido Home (ES)"
-        name: "home"
-        file: "data/home.es.json"
-        fields:
-          - label: "Navegación"
-            name: "nav"
-            widget: "object"
-            fields:
-              - {label: "Logo (opcional)", name: "logo", widget: "image", required: false}
-              - label: "Enlaces"
-                name: "links"
-                widget: "list"
-                fields:
-                  - {label: "Etiqueta", name: "label", widget: "string"}
-                  - {label: "Href", name: "href", widget: "string"}
-              - label: "Idiomas"
-                name: "languages"
-                widget: "object"
-                fields:
-                  - {label: "Etiqueta ES", name: "labelEs", widget: "string", default: "Cast"}
-                  - {label: "URL ES", name: "urlEs", widget: "string", default: "index-cast.html"}
-                  - {label: "Etiqueta CA", name: "labelCa", widget: "string", default: "Cat"}
-                  - {label: "URL CA", name: "urlCa", widget: "string", default: "index.html"}
-
-          - label: "Hero"
-            name: "hero"
-            widget: "object"
-            fields:
-              - {label: "Título (H1)", name: "title", widget: "string"}
-              - {label: "Descripción", name: "description", widget: "text"}
-              - {label: "Póster", name: "poster", widget: "image", required: false}
-              - {label: "Vídeo WEBM", name: "videoWebm", widget: "image", required: false}
-              - {label: "Vídeo MP4", name: "videoMp4", widget: "image", required: false}
-
-          - label: "About (Consultoría)"
-            name: "about"
-            widget: "object"
-            fields:
-              - {label: "Título", name: "title", widget: "string"}
-              - {label: "Descripción", name: "description", widget: "text"}
-              - label: "Servicios"
-                name: "services"
-                widget: "list"
-                field: {label: "Servicio", name: "item", widget: "string"}
-
-          - label: "Proceso"
-            name: "process"
-            widget: "object"
-            fields:
-              - {label: "Título sección", name: "sectionTitle", widget: "string"}
-              - {label: "Descripción sección", name: "sectionDescription", widget: "text"}
-              - label: "Pasos"
-                name: "steps"
-                widget: "list"
-                fields:
-                  - {label: "Número", name: "number", widget: "string"}
-                  - {label: "Título del paso", name: "title", widget: "string"}
-                  - {label: "Texto del paso", name: "text", widget: "text"}
-
-          - label: "Equipo"
-            name: "team"
+          - { label: "Logo", name: "logo", widget: "image", required: false }
+          - label: "Enllaços"
+            name: "links"
             widget: "list"
             fields:
-              - {label: "Nombre", name: "name", widget: "string"}
-              - {label: "Foto", name: "photo", widget: "image"}
-              - {label: "Descripción corta (front)", name: "frontDesc", widget: "string", required: false}
-              - {label: "Bio (dorso)", name: "bio", widget: "text"}
-              - label: "Puntos"
-                name: "bullets"
-                widget: "list"
-                field: {label: "Punto", name: "item", widget: "string"}
+              - { label: "Etiqueta", name: "label", widget: "string" }
+              - { label: "Href",     name: "href",  widget: "string" }
 
-          - label: "Footer"
-            name: "footer"
-            widget: "object"
+      - label: "Hero"
+        name: "hero_ca"
+        file: "content/home/ca/hero.md"
+        fields:
+          - { label: "Títol (H1)", name: "title", widget: "string" }
+          - { label: "Contingut",  name: "body",  widget: "markdown" }
+
+      - label: "About"
+        name: "about_ca"
+        file: "content/home/ca/about.md"
+        fields:
+          - { label: "Contingut",  name: "body", widget: "markdown" }
+
+      - label: "Procés"
+        name: "process_ca"
+        file: "content/home/ca/process.md"
+        fields:
+          - { label: "Contingut",  name: "body", widget: "markdown" }
+
+      - label: "Equip (Marc)"
+        name: "team_marc_ca"
+        file: "content/home/ca/team/marc.md"
+        fields:
+          - { label: "Nom",  name: "name",  widget: "string" }
+          - { label: "Foto", name: "photo", widget: "image" }
+          - { label: "Contingut", name: "body", widget: "markdown" }
+
+      - label: "Equip (Javier)"
+        name: "team_javier_ca"
+        file: "content/home/ca/team/javier.md"
+        fields:
+          - { label: "Nom",  name: "name",  widget: "string" }
+          - { label: "Foto", name: "photo", widget: "image" }
+          - { label: "Contingut", name: "body", widget: "markdown" }
+
+      - label: "Footer"
+        name: "footer_ca"
+        file: "content/home/ca/footer.md"
+        fields:
+          - { label: "Contingut", name: "body", widget: "markdown" }
+
+  # =============== HOME (CASTELLANO) [MD] ===============
+  - name: "home_es_md"
+    label: "🏠 Home (Castellano) [MD]"
+    editor: { preview: true }
+    files:
+      - label: "Navegación"
+        name: "nav_es"
+        file: "content/home/es/nav.md"
+        fields:
+          - { label: "Logo",   name: "logo",  widget: "image", required: false }
+          - label: "Enlaces"
+            name: "links"
+            widget: "list"
             fields:
-              - {label: "Título", name: "title", widget: "string"}
-              - {label: "Contacto (multilínea)", name: "contact", widget: "text"}
-              - {label: "Texto enlace legal", name: "legalText", widget: "string", default: "Aviso legal y Política de cookies"}
-              - {label: "URL enlace legal", name: "legalHref", widget: "string", default: "cookies-cast.html"}
-              - {label: "Copyright", name: "copyright", widget: "string", default: "Reformes Digitals © 2025"}
-              - {label: "Póster vídeo", name: "poster", widget: "image", required: false}
-              - {label: "Vídeo WEBM", name: "videoWebm", widget: "image", required: false}
-              - {label: "Vídeo MP4", name: "videoMp4", widget: "image", required: false}
+              - { label: "Etiqueta", name: "label", widget: "string" }
+              - { label: "Href",     name: "href",  widget: "string" }
 
-  # Páginas legales (si las quieres mantener editables)
+      - label: "Hero"
+        name: "hero_es"
+        file: "content/home/es/hero.md"
+        fields:
+          - { label: "Título (H1)", name: "title", widget: "string" }
+          - { label: "Contenido",   name: "body",  widget: "markdown" }
+
+      - label: "About"
+        name: "about_es"
+        file: "content/home/es/about.md"
+        fields:
+          - { label: "Contenido", name: "body", widget: "markdown" }
+
+      - label: "Proceso"
+        name: "process_es"
+        file: "content/home/es/process.md"
+        fields:
+          - { label: "Contenido", name: "body", widget: "markdown" }
+
+      - label: "Equipo (Marc)"
+        name: "team_marc_es"
+        file: "content/home/es/team/marc.md"
+        fields:
+          - { label: "Nombre", name: "name",  widget: "string" }
+          - { label: "Foto",   name: "photo", widget: "image" }
+          - { label: "Contenido", name: "body", widget: "markdown" }
+
+      - label: "Equipo (Javier)"
+        name: "team_javier_es"
+        file: "content/home/es/team/javier.md"
+        fields:
+          - { label: "Nombre", name: "name",  widget: "string" }
+          - { label: "Foto",   name: "photo", widget: "image" }
+          - { label: "Contenido", name: "body", widget: "markdown" }
+
+      - label: "Footer"
+        name: "footer_es"
+        file: "content/home/es/footer.md"
+        fields:
+          - { label: "Contenido", name: "body", widget: "markdown" }
+
+  # =============== LEGAL ===============
   - name: "legal"
-    label: "📜 Legal"
-    delete: false
+    label: "🧾 Legal"
+    editor: { preview: true }
     files:
-      - label: "Avís legal (CA)"
-        name: "aviso_ca"
+      - label: "Aviso Legal (CA)"
+        name: "aviso_legal_ca"
         file: "content/legal/aviso-legal-ca.md"
         fields:
-          - {label: "Títol", name: "title", widget: "string", default: "Avís legal"}
-          - {label: "Contingut", name: "body", widget: "markdown"}
-      - label: "Aviso legal (ES)"
-        name: "aviso_es"
-        file: "content/legal/aviso-legal-es.md"
-        fields:
-          - {label: "Título", name: "title", widget: "string", default: "Aviso legal"}
-          - {label: "Contenido", name: "body", widget: "markdown"}
-      - label: "Cookies (CA)"
+          - { label: "Título",   name: "title", widget: "string" }
+          - { label: "Contenido", name: "body",  widget: "markdown" }
+
+      - label: "Política de Cookies (CA)"
         name: "cookies_ca"
         file: "content/legal/cookies-ca.md"
         fields:
-          - {label: "Títol", name: "title", widget: "string", default: "Política de galetes"}
-          - {label: "Contingut", name: "body", widget: "markdown"}
-      - label: "Cookies (ES)"
+          - { label: "Título",   name: "title", widget: "string" }
+          - { label: "Contenido", name: "body",  widget: "markdown" }
+
+      - label: "Aviso Legal (ES)"
+        name: "aviso_legal_es"
+        file: "content/legal/aviso-legal-es.md"
+        fields:
+          - { label: "Título",   name: "title", widget: "string" }
+          - { label: "Contenido", name: "body",  widget: "markdown" }
+
+      - label: "Política de Cookies (ES)"
         name: "cookies_es"
         file: "content/legal/cookies-es.md"
         fields:
-          - {label: "Título", name: "title", widget: "string", default: "Política de cookies"}
-          - {label: "Contenido", name: "body", widget: "markdown"}
+          - { label: "Título",   name: "title", widget: "string" }
+          - { label: "Contenido", name: "body",  widget: "markdown" }

@@ -13,6 +13,8 @@
     <link rel="shortcut icon" href="img/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="img/favicon.png">
     <meta name="theme-color" content="#00c2ff"> <!-- color de la empresa -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
   </head>
   <body id="body">
 
@@ -229,137 +231,144 @@
 
   </body>
 
-  <script>
+ <script>
 (async () => {
+  const isCA = true; // en index.html
+  const base = isCA ? '/content/home/ca' : '/content/home/es';
+
+  async function loadText(path) {
+    const res = await fetch(path, { cache: 'no-store' });
+    return res.ok ? res.text() : '';
+  }
+
+  // NAV
   try {
-    const res = await fetch('/data/home.ca.json', { cache: 'no-store' });
-    const data = await res.json();
-
-    // NAV
+    const navFM = await loadText(`${base}/nav.md`);
+    // Extrae front matter muy simple (logo + links). Si prefieres, deja el nav fijo y omite esto.
+    const fmMatch = navFM.match(/^---\n([\s\S]*?)\n---/);
+    let logo = 'img/RDBlack.png', links = [];
+    if (fmMatch) {
+      const yml = fmMatch[1];
+      const logoM = yml.match(/logo:\s*(.+)/);
+      if (logoM) logo = logoM[1].trim().replace(/^"|"$/g, '');
+      const linksArr = [...yml.matchAll(/-\s*{\s*label:\s*"(.*?)",\s*href:\s*"(.*?)"\s*}/g)];
+      links = linksArr.map(m => ({ label: m[1], href: m[2] }));
+    }
+    const navLogo = document.getElementById('nav-logo');
+    if (navLogo) navLogo.src = `/src/${logo.replace(/^\.?\//,'')}`;
     const navMenu = document.getElementById('nav-menu');
-    if (navMenu && data.nav?.links) {
-      // Mantén el dropdown de idioma tal cual; reemplazamos solo los 3 primeros enlaces
-      const staticLang = document.getElementById('nav-item-idioma');
+    if (navMenu && links.length) {
+      // conserva el dropdown de idioma (último <li>), reemplaza los 3 primeros
+      const dropdown = document.getElementById('nav-item-idioma');
       navMenu.innerHTML = '';
-      data.nav.links.forEach(link => {
+      links.forEach(l => {
         const li = document.createElement('li');
-        li.innerHTML = `<a href="${link.href}">${link.label}</a>`;
-        navMenu.appendChild(li);
+        const a  = document.createElement('a');
+        a.href = l.href; a.textContent = l.label;
+        li.appendChild(a); navMenu.appendChild(li);
       });
-      if (staticLang) navMenu.appendChild(staticLang);
+      if (dropdown) navMenu.appendChild(dropdown);
     }
-    const logoImg = document.getElementById('nav-logo');
-    if (logoImg && data.nav?.logo) logoImg.src = data.nav.logo;
+  } catch(e) { console.warn('NAV MD load error', e); }
 
-    // Idiomas (dropdown)
-    const langMenu = document.querySelector('#nav-item-idioma .dropdown-menu');
-    if (langMenu && data.nav?.languages) {
-      langMenu.innerHTML = `
-        <li><a href="${data.nav.languages.urlEs}">${data.nav.languages.labelEs || 'Cast'}</a></li>
-        <li><a href="${data.nav.languages.urlCa}">${data.nav.languages.labelCa || 'Cat'}</a></li>
-      `;
-    }
+  // HERO
+  {
+    const md = await loadText(`${base}/hero.md`);
+    const lines = md.split('\n');
+    const h1 = lines.find(l => l.startsWith('# '));
+    const body = md.replace(/^# .*\n?/, '');
+    const titleEl = document.getElementById('hero-title');
+    const descEl  = document.getElementById('hero-description');
+    if (titleEl && h1) titleEl.textContent = h1.replace(/^#\s*/, '');
+    if (descEl) descEl.innerHTML = marked.parse(body);
+  }
 
-    // HERO
-    const heroTitle = document.getElementById('hero-title');
-    const heroDesc = document.getElementById('hero-description');
-    const heroVideo = document.getElementById('hero-video');
-    if (heroTitle) heroTitle.textContent = data.hero?.title || '';
-    if (heroDesc) heroDesc.textContent = data.hero?.description || '';
-    if (heroVideo && data.hero) {
-      if (data.hero.poster) heroVideo.setAttribute('poster', data.hero.poster);
-      const sources = heroVideo.querySelectorAll('source');
-      if (sources[0] && data.hero.videoWebm) sources[0].src = data.hero.videoWebm;
-      if (sources[1] && data.hero.videoMp4) sources[1].src = data.hero.videoMp4;
-      heroVideo.load();
-    }
+  // ABOUT
+  {
+    const md = await loadText(`${base}/about.md`);
+    const html = marked.parse(md);
+    // Inserta el título y la lista dentro de .about-box
+    const aboutBox = document.querySelector('#about .about-box');
+    if (aboutBox) aboutBox.innerHTML = html;
+  }
 
-    // ABOUT
-    const aboutTitle = document.getElementById('about-title');
-    const aboutDesc = document.getElementById('about-description');
-    const aboutList = document.querySelector('.about-services');
-    if (aboutTitle) aboutTitle.textContent = data.about?.title || '';
-    if (aboutDesc) aboutDesc.textContent = data.about?.description || '';
-    if (aboutList && Array.isArray(data.about?.services)) {
-      aboutList.innerHTML = '';
-      data.about.services.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = item;
-        aboutList.appendChild(li);
-      });
-    }
+  // PROCESS
+  {
+    const md = await loadText(`${base}/process.md`);
+    // title (puede llevar <br>), descripción y lista de pasos
+    const container = document.querySelector('#process .container');
+    if (container) {
+      // parse markdown a HTML y empótalo respetando tu estructura
+      const html = marked.parse(md);
+      // simple: reemplaza el bloque central del proceso por el HTML del MD
+      const title = container.querySelector('.section-title');
+      const desc  = container.querySelector('.section-description');
+      const grid  = container.querySelector('.process-grid');
+      if (title) title.remove();
+      if (desc)  desc.remove();
+      if (grid)  grid.remove();
 
-    // PROCESS
-    const procTitleEl = document.querySelector('#process .section-title');
-    const procDescEl = document.querySelector('#process .section-description');
-    const procGrid = document.querySelector('#process .process-grid');
-    if (procTitleEl) procTitleEl.innerHTML = (data.process?.sectionTitle || '').replace(/\n/g, '<br>');
-    if (procDescEl) procDescEl.textContent = data.process?.sectionDescription || '';
-    if (procGrid && Array.isArray(data.process?.steps)) {
-      procGrid.innerHTML = '';
-      data.process.steps.forEach((s, i) => {
-        const card = document.createElement('div');
-        card.className = `process-card step-${i+1}`;
-        card.innerHTML = `
-          <span class="process-number">${s.number || ''}</span>
-          <p>${s.title ? `<strong>${s.title}</strong><br>` : ''}${s.text || ''}</p>
-        `;
-        procGrid.appendChild(card);
-      });
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = html;
+      container.appendChild(wrapper);
     }
+  }
 
-    // TEAM
-    const teamGrid = document.querySelector('.team-grid');
-    if (teamGrid && Array.isArray(data.team)) {
-      teamGrid.innerHTML = '';
-      data.team.forEach(member => {
-        const card = document.createElement('div');
-        card.className = 'team-card';
-        card.innerHTML = `
-          <div class="team-front">
-            <img src="${member.photo}" alt="${member.name}" class="team-photo">
-            <h3 class="team-name">${member.name}</h3>
-          </div>
-          <div class="team-back">
-            <h3 class="team-name">${member.name}</h3>
-            <p>${member.bio || ''}</p>
-            ${Array.isArray(member.bullets) ? `<ul>${member.bullets.map(b => `<li>${b}</li>`).join('')}</ul>` : ''}
-          </div>
-        `;
-        teamGrid.appendChild(card);
-      });
+  // TEAM (dos fichas)
+  async function loadMember(slug, targetIndexes = [0,1]) {
+    const md = await loadText(`${base}/team/${slug}.md`);
+    if (!md) return;
+    const fm = md.match(/^---\n([\s\S]*?)\n---/);
+    let name = '', photo = '';
+    let body = md;
+    if (fm) {
+      const yml = fm[1];
+      const nameM  = yml.match(/name:\s*"(.*)"/);
+      const photoM = yml.match(/photo:\s*"(.*)"/);
+      if (nameM)  name  = nameM[1];
+      if (photoM) photo = '/src/' + photoM[1].replace(/^\.?\//,'');
+      body = md.replace(/^---[\s\S]*?---\n?/, '');
     }
+    const htmlBody = marked.parse(body);
 
-    // FOOTER
-    const footerTitle = document.getElementById('footer-title');
-    const footerContact = document.getElementById('footer-contact');
-    const footerLegal = document.getElementById('footer-left');
-    const footerCopy = document.getElementById('footer-right');
-    const footerVideo = document.getElementById('footer-video');
-    if (footerTitle) footerTitle.textContent = data.footer?.title || '';
-    if (footerContact) {
-      // permite **negreta** con Markdown muy simple
-      footerContact.innerHTML = (data.footer?.contact || '')
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\n/g, '<br />');
+    // busca las tarjetas existentes y rellénalas por índice
+    const cards = document.querySelectorAll('#team .team-card');
+    const idx = slug === 'marc' ? targetIndexes[0] : targetIndexes[1];
+    const card = cards[idx];
+    if (!card) return;
+
+    const frontImg = card.querySelector('.team-front img.team-photo');
+    const frontName= card.querySelector('.team-front .team-name');
+    const backName = card.querySelector('.team-back  .team-name');
+    const backBox  = card.querySelector('.team-back');
+
+    if (frontImg && photo) frontImg.src = photo;
+    if (frontName && name) frontName.textContent = name;
+    if (backName && name)  backName.textContent  = name;
+
+    // sustituye la bio y bullets
+    if (backBox) {
+      // borra p + ul antiguos y mete el markdown
+      const p = backBox.querySelector('p'); if (p) p.remove();
+      const ul= backBox.querySelector('ul'); if (ul) ul.remove();
+      const div = document.createElement('div');
+      div.innerHTML = htmlBody;
+      backBox.appendChild(div);
     }
-    if (footerLegal) {
-      footerLegal.textContent = data.footer?.legalText || 'Avís legal i Política de cookies';
-      footerLegal.href = data.footer?.legalHref || 'cookies.html';
-    }
-    if (footerCopy) footerCopy.textContent = data.footer?.copyright || '';
-    if (footerVideo && data.footer) {
-      if (data.footer.poster) footerVideo.setAttribute('poster', data.footer.poster);
-      const sv = footerVideo.querySelectorAll('source');
-      if (sv[0] && data.footer.videoWebm) sv[0].src = data.footer.videoWebm;
-      if (sv[1] && data.footer.videoMp4) sv[1].src = data.footer.videoMp4;
-      footerVideo.load();
-    }
-  } catch (e) {
-    console.warn('No s’ha pogut carregar /data/home.ca.json', e);
+  }
+  await loadMember('marc',   [0,1]);
+  await loadMember('javier', [1,0]);
+
+  // FOOTER
+  {
+    const md = await loadText(`${base}/footer.md`);
+    const html = marked.parse(md);
+    const footerBox = document.getElementById('footer-content');
+    if (footerBox) footerBox.innerHTML = html;
   }
 })();
 </script>
+
 
 
 </html>
