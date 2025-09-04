@@ -17,7 +17,7 @@ collections:
   # =============== HOME (CATALÀ) [MD] ===============
   - name: "home_ca_md"
     label: "🏠 Home (Català) [MD]"
-    editor: { preview: true }
+    editor: { preview: false }
     files:
       - label: "Navegació"
         name: "nav_ca"
@@ -75,7 +75,7 @@ collections:
   # =============== HOME (CASTELLANO) [MD] ===============
   - name: "home_es_md"
     label: "🏠 Home (Castellano) [MD]"
-    editor: { preview: true }
+    editor: { preview: false }
     files:
       - label: "Navegación"
         name: "nav_es"
@@ -133,7 +133,7 @@ collections:
   # =============== LEGAL ===============
   - name: "legal"
     label: "🧾 Legal"
-    editor: { preview: true }
+    editor: { preview: false }
     files:
       - label: "Aviso Legal (CA)"
         name: "aviso_legal_ca"
