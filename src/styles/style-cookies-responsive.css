@@ -1,0 +1,50 @@
+/* ============================
+   Responsive para COOKIES
+   ============================ */
+
+/* Base fluida para texto */
+html {
+  font-size: clamp(13px, 0.9vw, 16px);
+}
+
+/* Texto base adaptativo */
+#cookies p,
+#cookies li {
+  font-size: clamp(0.85rem, 2.5vw, 1.25rem);
+  line-height: 1.6;
+}
+
+/* --- MOBILE/TABLET --- */
+@media (max-width: 1024px){
+  #cookies .section-title {
+    font-size: clamp(1.6rem, 5vw, 2.5rem); /* más pequeño */
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+    text-align: center;
+  }
+
+  #cookies h2 {
+    font-size: clamp(1.1rem, 3.5vw, 1.75rem);
+    margin-bottom: 0.75rem;
+  }
+
+  #cookies {
+    padding: 2rem 1rem;
+  }
+
+  #cookies .about-box {
+    padding: 1rem;
+  }
+}
+
+/* --- DESKTOP (pantalla completa) --- */
+@media (min-width: 1025px){
+  #cookies .section-title {
+    font-size: 4.5rem;   /* vuelve al tamaño original */
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    text-align: left;   /* como estaba originalmente */
+    padding-right: 20.5rem; /* mantiene estilo ancho */
+  }
+}
