@@ -1,19 +1,21 @@
-// ===== Estilos reales dentro del iframe de preview =====
+// ===== Estilos del sitio dentro del iframe de preview =====
 CMS.registerPreviewStyle('/src/styles/reset.css');
 CMS.registerPreviewStyle('/src/styles/styles.css');
-CMS.registerPreviewStyle('/src/styles/style-responsive.css'); // si existe
-CMS.registerPreviewStyle('/src/styles/styles-cookies.css');   // opcional
+// Si tienes este responsive, déjalo. Si no, quítalo.
+CMS.registerPreviewStyle('/src/styles/style-responsive.css');
+// Opcional (legales)
+CMS.registerPreviewStyle('/src/styles/styles-cookies.css');
 
 // ===== Helpers =====
-const h = window.h; // Preact que expone Decap
+const h = window.h; // Preact expuesto por Decap
 const get = (obj, path, def = '') =>
   path.split('.').reduce((o, k) => (o && o[k] !== undefined ? o[k] : undefined), obj) ?? def;
 
-// Convierte "img/a.jpg" -> "/src/img/a.jpg". Si el server no sirve desde raíz, ver nota abajo.
+// Convierte "img/a.jpg" -> "/src/img/a.jpg"
 const assetUrl = (p, base = '/src/') => {
   if (!p) return '';
   if (p.startsWith('http')) return p;
-  if (p.startsWith('/')) return p;       // ya absoluta
+  if (p.startsWith('/')) return p;       // ya es absoluta
   return base + p.replace(/^\.?\//, '');
 };
 
@@ -41,13 +43,13 @@ function HomePreview({ entry }) {
         ),
         h('ul', { id: 'nav-menu' },
           (get(nav, 'links', []) || []).map((l, i) =>
-            h('li', { key: i }, h('a', { href: l.href || '#' }, l.label || ''))
+            h('li', { key: i }, h('a', { href: l.href || '#'}, l.label || ''))
           ),
           h('li', { id: 'nav-item-idioma', className: 'dropdown' },
             h('a', { href: '#', id: 'nav-link-idioma' }, 'Idioma'),
             h('ul', { className: 'dropdown-menu' },
-              h('li', null, h('a', { href: '#' }, 'Cast')),
-              h('li', null, h('a', { href: '#' }, 'Cat'))
+              h('li', null, h('a', { href: '#'}, 'Cast')),
+              h('li', null, h('a', { href: '#'}, 'Cat'))
             )
           )
         )
@@ -158,6 +160,9 @@ function HomePreview({ entry }) {
   );
 }
 
-// Registrar el template para CA y ES
+// Registrar template para ambas colecciones
 CMS.registerPreviewTemplate('home_ca', HomePreview);
 CMS.registerPreviewTemplate('home_es', HomePreview);
+
+// Señal para saber que cargó
+console.log('[Decap] HomePreview registrado');
