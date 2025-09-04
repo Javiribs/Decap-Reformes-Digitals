@@ -3,15 +3,15 @@
     "logo": "img/RDBlack.png",
     "links": [
       {
-        "label": "Què fem",
+        "label": "Què fem?",
         "href": "#hero"
       },
       {
-        "label": "Com ho fem",
+        "label": "Com ho fem?",
         "href": "#about"
       },
       {
-        "label": "Fem-ho",
+        "label": "Fem-ho!",
         "href": "#process"
       }
     ],
@@ -69,12 +69,12 @@
       },
       {
         "number": "05.",
-        "title": "Revisió final",
+        "title": "Revisió final:",
         "text": "Verifiquem disseny, contingut, navegació, idiomes i funcionalitats."
       },
       {
         "number": "06.",
-        "title": "Entrega",
+        "title": "Entrega:",
         "text": "Publiquem la web a la xarxa i facilitem accessos i formació bàsica."
       }
     ]

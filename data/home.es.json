@@ -2,9 +2,18 @@
   "nav": {
     "logo": "img/RDBlack.png",
     "links": [
-      { "label": "Qué hacemos", "href": "#hero" },
-      { "label": "Cómo lo hacemos", "href": "#about" },
-      { "label": "Fem-ho", "href": "#process" }
+      {
+        "label": "¿Qué hacemos?",
+        "href": "#hero"
+      },
+      {
+        "label": "¿Cómo lo hacemos?",
+        "href": "#about"
+      },
+      {
+        "label": "¡Hagámoslo!",
+        "href": "#process"
+      }
     ],
     "languages": {
       "labelEs": "Cast",
@@ -38,12 +47,36 @@
     "sectionTitle": "Un proceso senzillo\nUn resultado que tiene sentido",
     "sectionDescription": "Hacer que la web de tu negocio sea funcional y atractiva es una tarea compleja. Este es nuestro método:",
     "steps": [
-      { "number": "01.", "title": "Reunión inicial:", "text": "Estudiamos a fondo tu empresa y los objetivos que se quieren conseguir." },
-      { "number": "02.", "title": "Propuesta de diseño:", "text": "Te presentamos una propuesta visual que refleje tu identidad." },
-      { "number": "03.", "title": "Validación:", "text": "Escuchamos tu feedback y ajustamos el diseño según sea necesario." },
-      { "number": "04.", "title": "Programación:", "text": "Convertimos el diseño en una web funcional, optimizada y adaptada." },
-      { "number": "05.", "title": "Entrega y revisión final:", "text": "Publicamos la web cuando estés totalmente satisfecho/a." },
-      { "number": "06.", "title": "", "text": "Tiempo estimado: entre 4 y 6 semanas.\nPrecio a partir de 1.000 €." }
+      {
+        "number": "01.",
+        "title": "Reunión inicial:",
+        "text": "Estudiamos a fondo tu empresa y los objetivos que se quieren conseguir."
+      },
+      {
+        "number": "02.",
+        "title": "Propuesta de diseño:",
+        "text": "Te presentamos una propuesta visual que refleje tu identidad."
+      },
+      {
+        "number": "03.",
+        "title": "Validación:",
+        "text": "Escuchamos tu feedback y ajustamos el diseño según sea necesario."
+      },
+      {
+        "number": "04.",
+        "title": "Programación:",
+        "text": "Convertimos el diseño en una web funcional, optimizada y adaptada."
+      },
+      {
+        "number": "05.",
+        "title": "Revisión final:",
+        "text": "Verificamos diseño, contenido, navegación, idiomas y funcionalidades."
+      },
+      {
+        "number": "06.",
+        "title": "Entrega:",
+        "text": "Publicamos la web en la red y facilitamos accesos y formación básica."
+      }
     ]
   },
   "team": [

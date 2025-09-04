@@ -7,6 +7,8 @@ backend:
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
+logo_url: "/src/img/RDBlack.png"
+
 slug:
   encoding: "unicode"
   clean_accents: true
