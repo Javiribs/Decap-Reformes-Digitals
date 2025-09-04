@@ -1,6 +1,6 @@
 ---
-name: "Marc Duran Llauger"
-photo: "img/Marc-foto-perfil.jpg"
+name: Marc Duran Llauger
+photo: /assets/uploads/perfil-marc.png
 ---
 
 Mirada estratègica orientada a resultats. És qui s'encarrega que la teva web no només es vegi bé, sinó que funcioni.
