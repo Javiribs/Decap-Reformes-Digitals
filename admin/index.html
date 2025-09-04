@@ -7,16 +7,10 @@
   </head>
   <body>
     <!-- Decap CMS -->
-    <script src="https://cdn.jsdelivr.net/npm/decap-cms@3/dist/decap-cms.js"></script>
-    <!-- Fallback de diagnóstico: si no carga el script anterior, verás un aviso -->
-    <script>
-      setTimeout(() => {
-        if (!window.CMS) {
-          document.body.innerHTML =
-            '<p style="font:14px/1.4 sans-serif;padding:16px">No se pudo cargar <code>decap-cms.js</code> desde el CDN. Comprueba tu conexión o corta/pega la URL en una pestaña para ver si responde.</p>';
-        }
-      }, 1000);
-    </script>
+    <script src="https://unpkg.com/decap-cms@^3.8.3/dist/decap-cms.js"></script>
+
+    <!-- Script personalizado para previews, estilos, etc. -->
     <script src="/admin/cms.js"></script>
   </body>
 </html>
+
